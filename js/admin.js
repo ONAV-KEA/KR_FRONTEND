@@ -51,6 +51,44 @@ function addEvent() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        makeEventRows();
     })
     myModal.hide();
 }
+
+async function makeEventRows(){
+    const events = await getAllEvents();
+        const tableBody = document.getElementById("events-table-body");
+
+        const rows = events.content.map(event => {
+            return `
+            <tr>
+                <td>${event.name}</td>
+                <td>${event.startDate}</td>
+                <td>${event.endDate}</td>
+                <td>${event.location}</td>
+                <td>
+                    <button class="btn btn-primary btn-sm" onclick="showEditEventModal(${event.id})">Edit</button>                </td>
+            </tr>
+            `;
+        });
+
+        tableBody.innerHTML = rows.join("");
+}
+// TODO: add paging
+function getAllEvents() {
+    return fetch(api)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+            throw error; // Rethrow the error to propagate it to the caller
+        });
+}
+
+
+
+makeEventRows();
