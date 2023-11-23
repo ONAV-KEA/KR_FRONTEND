@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Kromann Reuter</title>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+  </head>
+  <body>
+    <nav class="navbar main-color text-light">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <a class="navbar-brand" href="#">
+          <img
+            src="assets/images/kromann-logo-white.svg"
+            alt="Logo"
+            width="300"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <div class="d-flex align-items-center">
+          <a href="#" class="nav-link me-5"
+            >Kommende begivenheder <i class="fa fa-calendar"></i
+          ></a>
+          <a href="#" class="nav-link me-2">Login <i class="fa fa-user"></i></a>
+        </div>
+      </div>
+    </nav>
+
+    <div id="mySidebar" class="sidebar">
+      <a href="javascript:void(0)" id="closebtn" class="closebtn">×</a>
+      <a href="#">Users</a>
+      <a href="#">Link</a>
+      <a href="#">Link</a>
+    </div>
+
+    <div id="main">
+      <button id="openbtn" class="openbtn">☰</button>
+      <table class="table w-75" id="events-table">
+        <thead id="header-row">
+          <tr>
+            <th scope="col">Name <i id="sort-name" class="fa fa-sort"></i></th>
+            <th scope="col">
+              Start Date <i id="sort-startDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+              End Date <i id="sort-endDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+              Location <i id="sort-location" class="fa fa-sort"></i>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody id="events-table-body"></tbody>
+      </table>
+      <ul class="pagination" id="pagination"></ul>
+
+      <button class="btn btn-primary" id="add-event-btn">Add Event</button>
+
+      <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="event-modal-title">Add Event</h3>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="eventName">Event Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventLocation">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventLocation"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event location"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventDescription">Description</label>
+                  <textarea
+                    id="eventDescription"
+                    placeholder="Enter description..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="eventStartDate">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eventStartDate"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event start date"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="eventEndDate"
+                    >End Date (leave blank if same as start date)</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eventEndDate"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event end date (Leave blank if same as start date)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventImg">Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="eventImg"
+                    class="form-control"
+                    id="eventImg"
+                    aria-describedby="eventHelp"
+                    placeholder="upload image"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                id="btn-add-event"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Add Event
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <footer class="py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">About</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Contact</a>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link px-2 text-muted">Login</a>
+          </li>
+        </ul>
+        <p class="text-center text-muted">© 2023 KEA</p>
+      </footer>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+  </body>
+</html>
