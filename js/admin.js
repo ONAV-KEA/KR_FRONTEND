@@ -10,6 +10,7 @@ let loc = "";
 document.getElementById("openbtn").addEventListener("click", openNav);
 document.getElementById("closebtn").addEventListener("click", closeNav);
 document.getElementById("add-event-btn").addEventListener("click", showAddEventModal);
+
 document.getElementById('header-row').onclick = function (evt) {
     const id = evt.target.id;
     if(!id.startsWith('sort-')) return;
@@ -18,6 +19,13 @@ document.getElementById('header-row').onclick = function (evt) {
       sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     getAllEvents();
   };
+
+  function handleCrudClicks(){
+    document.querySelectorAll(".btn-delete-event").forEach(button => {
+        button.removeEventListener("click", deleteEvent);
+        button.addEventListener("click", deleteEvent);
+    });
+  }
 
 
 function openNav() {
@@ -89,13 +97,14 @@ async function makeEventRows(events) {
                 <button class="btn btn-warning btn-sm">Edit</button>
             </td>
             <td>
-                <button class="btn btn-danger btn-sm">Delete</button>
+                <button class="btn btn-danger btn-sm btn-delete-event" data-event="${event.id}">Delete</button>
             </td>
         </tr>
         `;
     });
    
     tableBody.innerHTML = rows.join("");
+    handleCrudClicks();
    }
    
  
@@ -150,5 +159,30 @@ document.querySelector('#pagination').onclick = function (evt) {
         getAllEvents(page);
     }
 };
+
+function deleteEvent(evt) {
+    const eventId = evt.currentTarget.getAttribute("data-event");
+    console.log(eventId);
+    const options = {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+
+    fetch(`${API}/${eventId}`, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            // The delete request was successful, now call getAllEvents
+            getAllEvents();
+        })
+        .catch(error => {
+            console.error('Error deleting event:', error);
+            // You might want to handle the error here or log it
+        });
+}
+
 
 getAllEvents(0);
