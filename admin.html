@@ -52,12 +52,18 @@
     <div id="main">
       <button id="openbtn" class="openbtn">☰</button>
       <table class="table w-75" id="events-table">
-        <thead>
+        <thead id="header-row">
           <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Location</th>
+            <th scope="col">Name <i id="sort-name" class="fa fa-sort"></i></th>
+            <th scope="col">
+              Start Date <i id="sort-startDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+              End Date <i id="sort-endDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+              Location <i id="sort-location" class="fa fa-sort"></i>
+            </th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
@@ -65,6 +71,7 @@
         </thead>
         <tbody id="events-table-body"></tbody>
       </table>
+      <ul class="pagination" id="pagination"></ul>
 
       <button class="btn btn-primary" id="add-event-btn">Add Event</button>
 
