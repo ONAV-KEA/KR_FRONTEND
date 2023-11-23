@@ -1,69 +1,127 @@
 @font-face {
-    font-family: "Berling LT W05 Roman";
-    src: url(assets/fonts/berling.woff2) format("woff2");
+  font-family: "Berling LT W05 Roman";
+  src: url(assets/fonts/berling.woff2) format("woff2");
 }
 
-body h1,body h2,body h3,body h4,body h5,body h6 {
-    font-family: "Berling LT W05 Roman",Georgia,serif;
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6 {
+  font-family: "Berling LT W05 Roman", Georgia, serif;
 }
 
 .main-color {
-    background-color: #003c46;
+  background-color: #003c46;
 }
 
 .secondary-color {
-    background-color: #b0b0b0;
+  background-color: #b0b0b0;
 }
 
 a.nav-link:hover {
-    color: #129bb0;
+  color: #129bb0;
 }
 
 /* Custom styles for the layout */
 .background-image {
-    background-image: url('/assets/images/background-img.jpg');
-    background-size: cover;
-    background-position: center;
-    height: 100vh; /* Adjusts to full viewport height */
-    position: relative;
+  background-image: url("/assets/images/background-img.jpg");
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Adjusts to full viewport height */
+  position: relative;
 }
 
 .overlay {
-    background-color: rgba(0, 60, 70, 0.86); /* Transparent black */
-    height: 100%;
-    width: 35%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  background-color: rgba(0, 60, 70, 0.86); /* Transparent black */
+  height: 100%;
+  width: 35%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .content-container {
-    text-align: center;
-    color: white;
-    padding: 20px;
+  text-align: center;
+  color: white;
+  padding: 20px;
 }
 
 .primary-btn {
-    background-color: rgba(0, 60, 70, 0);
-    color: white;
-    border: 2px solid white;
-    padding: 10px 20px;
-    border-radius: 25px;
-    text-decoration: none;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    max-width: 200px; /* Adjust the max-width as needed */
-    white-space: normal;
+  background-color: rgba(0, 60, 70, 0);
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  max-width: 200px; /* Adjust the max-width as needed */
+  white-space: normal;
 }
 
 .primary-btn i {
-    transition: transform 0.3s ease-in-out;
+  transition: transform 0.3s ease-in-out;
 }
 
 .primary-btn:hover i {
-    transform: translateX(10px); /* Adjust the value to shift the icon to the right */
+  transform: translateX(
+    10px
+  ); /* Adjust the value to shift the icon to the right */
 }
 
+.table {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 30;
+  left: 0;
+  background-color: #056373;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: white;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #129bb0;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #056373;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #003c46;
+}
