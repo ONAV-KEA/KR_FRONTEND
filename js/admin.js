@@ -16,7 +16,7 @@ document.getElementById('header-row').onclick = function (evt) {
     //TODO handle sorting here
       sortColumn = id.substring(5);
       sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-    makeEventRows();
+    getAllEvents();
   };
 
 
@@ -67,14 +67,14 @@ function addEvent() {
     .then(response => response.json())
     .then(data => {
         console.log(data);
-        makeEventRows();
+        getAllEvents();
     })
     myModal.hide();
 }
 
-function makeEventRows(events) {
+async function makeEventRows(events) {
     const tableBody = document.getElementById("events-table-body");
- 
+   
     const rows = events.map(event => {
         return `
         <tr>
@@ -94,20 +94,20 @@ function makeEventRows(events) {
         </tr>
         `;
     });
- 
+   
     tableBody.innerHTML = rows.join("");
- }
+   }
+   
  
 
 
- function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
-    return fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`)
+ async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
+    return await fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`)
         .then(response => response.json())
         .then(data => {
             console.log(data);
             makeEventRows(data.content);
             displayPagination(data.totalPages, page);
-            return data;
         })
         .catch(error => {
             console.error('Error fetching events:', error);
