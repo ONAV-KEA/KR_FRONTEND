@@ -54,33 +54,118 @@
       <table class="table w-75" id="events-table">
         <thead>
           <tr>
-            <th scope="col">#</th>
-            <th scope="col">First</th>
-            <th scope="col">Last</th>
-            <th scope="col">Handle</th>
+            <th scope="col">Name</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Location</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
-          </tr>
-          <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-          </tr>
-          <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-          </tr>
-        </tbody>
+        <tbody id="events-table-body"></tbody>
       </table>
+
+      <button class="btn btn-primary" id="add-event-btn">Add Event</button>
+
+      <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="event-modal-title">Add Event</h3>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="form-group">
+                  <label for="eventName">Event Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventName"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event name"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventLocation">Location</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="eventLocation"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event location"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventDescription">Description</label>
+                  <textarea
+                    id="eventDescription"
+                    placeholder="Enter description..."
+                  ></textarea>
+                </div>
+                <div class="form-group">
+                  <label for="eventStartDate">Start Date</label>
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eventStartDate"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event start date"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="eventEndDate"
+                    >End Date (leave blank if same as start date)</label
+                  >
+                  <input
+                    type="date"
+                    class="form-control"
+                    id="eventEndDate"
+                    aria-describedby="eventHelp"
+                    placeholder="Enter event end date (Leave blank if same as start date)"
+                  />
+                </div>
+                <div class="form-group">
+                  <label for="eventImg">Image</label>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    name="eventImg"
+                    class="form-control"
+                    id="eventImg"
+                    aria-describedby="eventHelp"
+                    placeholder="upload image"
+                  />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Cancel
+              </button>
+              <button
+                id="btn-add-event"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
+                Add Event
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="container">
@@ -104,5 +189,6 @@
     </div>
 
     <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
   </body>
 </html>
