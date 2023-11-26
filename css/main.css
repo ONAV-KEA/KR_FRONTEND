@@ -157,3 +157,17 @@ a.nav-link:hover {
 .card-link {
   text-decoration: none;
 }
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#event-title {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
