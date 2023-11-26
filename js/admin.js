@@ -3,6 +3,15 @@ const PAGE_SIZE = 10;
 let sortColumn = "name";
 let sortDirection = 'asc';
 
+function encode(str) {
+    str = str.replace(/&/g, "&amp;");
+    str = str.replace(/>/g, "&gt;");
+    str = str.replace(/</g, "&lt;");
+    str = str.replace(/"/g, "&quot;");
+    str = str.replace(/'/g, "&#039;");
+    return str;
+}
+
 document.getElementById("openbtn").addEventListener("click", openNav);
 document.getElementById("closebtn").addEventListener("click", closeNav);
 document.getElementById("add-event-btn").addEventListener("click", showAddEventModal);
@@ -196,64 +205,63 @@ function deleteEvent(evt) {
     function handleEvent(evt) {
         const myModalEl = document.getElementById('event-modal');
         const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
+    
+        const eventData = {
+            name: encode(document.getElementById("eventName").value),
+            startDate: encode(document.getElementById("eventStartDate").value),
+            endDate: encode(document.getElementById("eventEndDate").value===""?document.getElementById("eventStartDate").value:document.getElementById("eventEndDate").value),
+            description: encode(document.getElementById("eventDescription").value),
+            location: encode(document.getElementById("eventLocation").value),
+            imgRef: encode(document.getElementById("eventImg").value)
+        };
+    
         if (myModalEl.getAttribute('data-mode') === 'add') {
-            addEvent();
+            addEvent(eventData);
         } else {
             const eventId = evt.currentTarget.dataset.eventId;  // Get eventId from button's dataset
-            editEvent(eventId);
+            editEvent(eventId, eventData);
         }
     }
+
+    function editEvent(eventId, eventData) {
+        const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
     
+        const options = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(eventData)
+        };
+    
+        fetch(`${API}/${eventId}`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                getAllEvents();
+            });
+    
+        myModal.hide();
+    }
 
-function editEvent(eventId) {
+function addEvent(eventData) {
     const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
-    const eventData = {
-        name: document.getElementById("eventName").value,
-        startDate: document.getElementById("eventStartDate").value,
-        endDate: document.getElementById("eventEndDate").value,
-        description: document.getElementById("eventDescription").value,
-        location: document.getElementById("eventLocation").value,
-        imgRef: document.getElementById("eventImg").value
-    }
-    const options = {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(eventData)
-    }
-    fetch(`${API}/${eventId}`, options)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        getAllEvents();
-    })
-    myModal.hide();
-}
 
-function addEvent() {
-    const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
-    const eventData = {
-        name: document.getElementById("eventName").value,
-        startDate: document.getElementById("eventStartDate").value,
-        endDate: document.getElementById("eventEndDate").value,
-        description: document.getElementById("eventDescription").value,
-        location: document.getElementById("eventLocation").value,
-        imgRef: document.getElementById("eventImg").value
-    }
     const options = {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify(eventData)
-    }
+    };
+
     fetch(`${API}`, options)
-    .then(response => response.json())
-    .then(data => {
-        console.log(data);
-        getAllEvents();
-    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            getAllEvents();
+        });
+
     myModal.hide();
 }
 
