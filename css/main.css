@@ -17,7 +17,7 @@ body h6 {
 }
 
 .secondary-color {
-  background-color: #b0b0b0;
+  background-color: #cccccc;
 }
 
 a.nav-link:hover {
@@ -124,4 +124,36 @@ a.nav-link:hover {
 
 .openbtn:hover {
   background-color: #003c46;
+}
+
+.date-square {
+  position: absolute;
+  color: white;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 60, 70, 0.86);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.card-link {
+  text-decoration: none;
 }
