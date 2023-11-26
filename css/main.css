@@ -8,7 +8,9 @@ body h2,
 body h3,
 body h4,
 body h5,
-body h6 {
+body h6,
+body p,
+label {
   font-family: "Berling LT W05 Roman", Georgia, serif;
 }
 
@@ -47,7 +49,7 @@ a.nav-link:hover {
 
 .content-container {
   text-align: center;
-  color: white;
+  color: black;
   padding: 20px;
 }
 
@@ -170,4 +172,54 @@ a.nav-link:hover {
   margin-right: auto;
   width: 100%;
   text-align: center;
+}
+
+#event-image {
+  width: 50%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  filter: drop-shadow(5px 5px 10px #000000);
+  margin-bottom: 10px;
+}
+
+#event-description {
+  color: black;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#divider {
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#event-date {
+  color: black;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#form-title {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#eventAnswer {
+  width: 50%;
+  margin: 0 auto;
 }

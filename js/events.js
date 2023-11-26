@@ -63,7 +63,7 @@ function makeCards(events) {
         }
         return `
         <div class="col-md-4 mb-4">
-            <a href="/events/${event.id}" class="card-link">
+            <a href="/event.html?id=${event.id}" class="card-link">
                 <div class="card" style="width: 18rem; position: relative;">
                     <img src="${event.imgRef === "" ? "../assets/images/coming-soon.png" : event.imgRef}" class="card-img-top" alt="">
                     <div class="date-square">${dateText}</div>
@@ -79,17 +79,6 @@ function makeCards(events) {
 
     const cardContainer = document.getElementById("cardsRow");
     cardContainer.innerHTML = cards.join("");
-
-    const cardLinks = document.querySelectorAll('.card-link');
-    cardLinks.forEach(link => {
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const eventUrl = this.getAttribute('href');
-            history.pushState({}, null, eventUrl);
-            // TODO: Fetch the event and render it and remove everything else
-            
-        });
-    });
 }
 
 
@@ -97,7 +86,6 @@ function makeCards(events) {
 
 
 function formatDate(dateString) {
-    // Assuming your date is in a string format, you may need to format it accordingly
     const date = new Date(dateString);
     const options = { month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
