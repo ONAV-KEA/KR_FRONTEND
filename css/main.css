@@ -8,7 +8,9 @@ body h2,
 body h3,
 body h4,
 body h5,
-body h6 {
+body h6,
+body p,
+label {
   font-family: "Berling LT W05 Roman", Georgia, serif;
 }
 
@@ -17,7 +19,7 @@ body h6 {
 }
 
 .secondary-color {
-  background-color: #b0b0b0;
+  background-color: #cccccc;
 }
 
 a.nav-link:hover {
@@ -47,7 +49,7 @@ a.nav-link:hover {
 
 .content-container {
   text-align: center;
-  color: white;
+  color: black;
   padding: 20px;
 }
 
@@ -124,4 +126,100 @@ a.nav-link:hover {
 
 .openbtn:hover {
   background-color: #003c46;
+}
+
+.date-square {
+  position: absolute;
+  color: white;
+  top: 10px;
+  left: 10px;
+  background-color: rgba(0, 60, 70, 0.86);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.card-text {
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+.card-link {
+  text-decoration: none;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+#event-title {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#event-image {
+  width: 15%;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  filter: drop-shadow(5px 5px 10px #000000);
+  margin-bottom: 10px;
+}
+
+#event-description {
+  color: black;
+  font-size: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#divider {
+  width: 100%;
+  height: 1px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#event-date {
+  color: black;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#form-title {
+  color: black;
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+}
+
+#eventAnswer {
+  width: 50%;
+  margin: 0 auto;
 }
