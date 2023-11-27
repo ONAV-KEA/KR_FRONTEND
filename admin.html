@@ -64,7 +64,7 @@
       </table>
       <ul class="pagination" id="pagination"></ul>
 
-      <button class="btn btn-primary" id="add-event-btn">Add Event</button>
+      <button class="btn btn-primary" id="add-event-btn" style="margin: 5px;">Add Event</button>
 
       <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
         <div class="modal-dialog">
@@ -102,7 +102,7 @@
                 </div>
                 <div class="form-group">
                   <label for="eventDescription">Description</label>
-                  <textarea
+                  <textarea class="form-control"
                     id="eventDescription"
                     placeholder="Enter description..."
                   ></textarea>
@@ -132,32 +132,15 @@
                 </div>
                 <div class="form-group">
                   <label for="eventImg">Image</label>
-                  <input
-                    type="file"
-                    accept="image/*"
-                    name="eventImg"
-                    class="form-control"
-                    id="eventImg"
-                    aria-describedby="eventHelp"
-                    placeholder="upload image"
-                  />
+                  <input type="file" accept="image/*" name="eventImg" class="form-control" id="eventImg" aria-describedby="eventHelp" placeholder="upload image"/>
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
                 Cancel
               </button>
-              <button
-                id="btn-add-event"
-                type="button"
-                class="btn btn-primary"
-                data-bs-dismiss="modal"
-              >
+              <button id="btn-add-event" type="button" class="btn btn-primary" data-bs-dismiss="modal">
                 Add Event
               </button>
             </div>
