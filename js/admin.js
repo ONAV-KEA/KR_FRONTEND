@@ -15,6 +15,7 @@ function encode(str) {
 document.getElementById("openbtn").addEventListener("click", openNav);
 document.getElementById("closebtn").addEventListener("click", closeNav);
 document.getElementById("add-event-btn").addEventListener("click", showAddEventModal);
+document.getElementById("search-image-btn").addEventListener("click", searchUnsplashImage);
 
 document.getElementById('header-row').onclick = function (evt) {
     const id = evt.target.id;
@@ -202,26 +203,66 @@ function deleteEvent(evt) {
         });
     }
 
-    function handleEvent(evt) {
-        const myModalEl = document.getElementById('event-modal');
-        const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
-    
-        const eventData = {
-            name: encode(document.getElementById("eventName").value),
-            startDate: encode(document.getElementById("eventStartDate").value),
-            endDate: encode(document.getElementById("eventEndDate").value===""?document.getElementById("eventStartDate").value:document.getElementById("eventEndDate").value),
-            description: encode(document.getElementById("eventDescription").value),
-            location: encode(document.getElementById("eventLocation").value),
-            imgRef: encode(document.getElementById("eventImg").value)
-        };
-    
-        if (myModalEl.getAttribute('data-mode') === 'add') {
-            addEvent(eventData);
-        } else {
-            const eventId = evt.currentTarget.dataset.eventId;  // Get eventId from button's dataset
-            editEvent(eventId, eventData);
-        }
+let selectedImageUrl = '';
+
+async function searchUnsplashImage() {
+    const searchQuery = document.getElementById("eventImg").value.trim();
+
+    if (searchQuery === "") {
+        // Handle empty search query
+        console.log("Empty search query");
+        return;
     }
+
+    const imageContainer = document.getElementById("imageToDisplay");
+    imageContainer.src = ""; // Clear previous image (if any)
+
+    const imageUrl = await getUnsplashImage(searchQuery);
+    imageContainer.src = imageUrl; // Display fetched image in an <img> element
+    console.log("Fetched image URL:", imageUrl);
+
+    selectedImageUrl = imageUrl;
+}
+
+async function getUnsplashImage(searchQuery) {
+    const apiKey = "ghdemshFN49d3S0RbExlmtShkG5MK0e9-o6fzqk1-ns";
+    const unsplashRequestUrl = `https://api.unsplash.com/search/photos?query=${searchQuery}&client_id=${apiKey}`;
+
+    try {
+        const response = await fetch(unsplashRequestUrl);
+        const data = await response.json();
+
+        if (data.results && data.results.length > 0) {
+            const randomIndex = Math.floor(Math.random() * data.results.length);
+            return data.results[randomIndex].urls.regular;
+        }
+        return "https://via.placeholder.com/550x350";
+    } catch (error) {
+        console.error("Error fetching images from Unsplash:", error);
+        return "https://via.placeholder.com/550x350";
+    }
+}
+
+async function handleEvent(evt) {
+    const myModalEl = document.getElementById('event-modal');
+    const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
+
+    const eventData = {
+        name: encode(document.getElementById("eventName").value),
+        startDate: encode(document.getElementById("eventStartDate").value),
+        endDate: encode(document.getElementById("eventEndDate").value === "" ? document.getElementById("eventStartDate").value : document.getElementById("eventEndDate").value),
+        description: encode(document.getElementById("eventDescription").value),
+        location: encode(document.getElementById("eventLocation").value),
+        imgRef: encode(selectedImageUrl) // Use the globally stored selected image URL
+    };
+
+    if (myModalEl.getAttribute('data-mode') === 'add') {
+        addEvent(eventData);
+    } else {
+        const eventId = evt.currentTarget.dataset.eventId;
+        editEvent(eventId, eventData);
+    }
+}
 
     function editEvent(eventId, eventData) {
         const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
