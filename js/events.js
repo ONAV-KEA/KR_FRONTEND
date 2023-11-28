@@ -1,5 +1,5 @@
 const API = "http://localhost:8080/api/event"
-const PAGE_SIZE = 9;
+const PAGE_SIZE = 6;
 let sortColumn = "startDate";
 let sortDirection = 'asc';
 

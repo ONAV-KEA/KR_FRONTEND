@@ -236,10 +236,10 @@ async function getUnsplashImage(searchQuery) {
             const randomIndex = Math.floor(Math.random() * data.results.length);
             return data.results[randomIndex].urls.regular;
         }
-        return "https://via.placeholder.com/550x350";
+        return "https://via.placeholder.com/250x350";
     } catch (error) {
         console.error("Error fetching images from Unsplash:", error);
-        return "https://via.placeholder.com/550x350";
+        return "https://via.placeholder.com/250x350";
     }
 }
 
