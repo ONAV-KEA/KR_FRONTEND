@@ -34,48 +34,44 @@
     </div>
   </nav>
 
-    <div class="container-fluid p-0 secondary-color">
-      <div class="content-container">
-        <h3 id="event-title"></h3>
-        <img src="" alt="" id="event-image" />
-        <p id="event-date"></p>
-        <div id="divider"></div>
-        <p id="event-description"></p>
-        <div id="divider"></div>
+  <div class="container-fluid secondary-color d-flex justify-content-center align-items-center">
+    <div class="content-container">
+      <h3 id="event-title"></h3>
+      <img src="" alt="" id="event-image" />
+      <p id="event-date"></p>
+      <p id="event-description"></p>
+      <h3 id="form-title"></h3>
 
-        <div id="divider"></div>
-        <h3 id="form-title"></h3>
-
-        <form id="eventAnswer">
-          <div class="form-check">
-            <input
-              class="form-check-input evnetAnswer"
-              type="radio"
-              name="eventAnswer"
-              id="radioAnswer1"
-              checked
-            />
-            <label class="form-check-label evnetAnswer" for="radioAnswer1">
-              Jeg Deltager
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input evnetAnswer"
-              type="radio"
-              name="eventAnswer"
-              id="radioAnswer2"
-            />
-            <label class="form-check-label evnetAnswer" for="radioAnswer2">
-              Jeg Deltager Ikke
-            </label>
-          </div>
-          <button type="submit" id="eventAnswer-btn" class="btn btn-primary">
-            Afgiv svar
-          </button>
-        </form>
-      </div>
+      <form id="eventAnswer" class="d-flex flex-column">
+        <div class="form-check">
+          <input
+                  class="form-check-input event-answer"
+                  type="radio"
+                  name="eventAnswer"
+                  id="radioAnswer1"
+                  checked
+          />
+          <label class="form-check-label event-answer-label" for="radioAnswer1">
+            Jeg Deltager
+          </label>
+        </div>
+        <div class="form-check">
+          <input
+                  class="form-check-input event-answer"
+                  type="radio"
+                  name="eventAnswer"
+                  id="radioAnswer2"
+          />
+          <label class="form-check-label event-answer-label" for="radioAnswer2">
+            Jeg Deltager Ikke
+          </label>
+        </div>
+        <button type="submit" id="eventAnswer-btn" class="btn btn-primary mt-3">
+          Afgiv svar
+        </button>
+      </form>
     </div>
+  </div>
 
   <div class="container">
     <footer class="py-3 my-4 default_cursor_cs">
