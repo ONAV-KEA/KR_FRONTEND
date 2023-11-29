@@ -38,15 +38,12 @@ function handleCrudClicks() {
 }
 
 function openNav() {
-    document.getElementById("mySidebar").style.width = "250px";
-    document.getElementById("main").style.marginLeft = "250px";
-    document.getElementById("openbtn").style.display = "none";
+    document.getElementById("mySidebar").style.width = "150px";
 }
 
 function closeNav() {
     document.getElementById("mySidebar").style.width = "0";
     document.getElementById("main").style.marginLeft= "0";
-    document.getElementById("openbtn").style.display = "block";
 }
 
 function resetModal() {
@@ -104,13 +101,13 @@ async function makeEventRows(events) {
             <td>${event.endDate}</td>
             <td>${event.location}</td>
             <td>
-                <button class="btn btn-primary btn-sm">View Event</button>
+                <button class="btn btn-primary btn-sm">View Event <i class="fa fa-eye"></i></button>
             </td>
             <td>
-                <button class="btn btn-warning btn-sm btn-edit-event" data-event="${event.id}">Edit</button>
+                <button class="btn btn-outline-primary btn-sm btn-edit-event" data-event="${event.id}">Edit <i class="fa fa-pencil"></i></button>
             </td>
             <td>
-                <button class="btn btn-danger btn-sm btn-delete-event" data-event="${event.id}">Delete</button>
+                <button class="btn btn-danger btn-sm btn-delete-event" data-event="${event.id}">Delete <i class="fa fa-trash"></i></button>
             </td>
         </tr>
         `;

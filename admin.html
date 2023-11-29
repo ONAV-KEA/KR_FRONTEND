@@ -41,7 +41,11 @@
     </div>
 
     <div id="main">
-      <button id="openbtn" class="openbtn">☰</button>
+      <div class="container-fluid d-flex align-items-center justify-content-between">
+        <button id="openbtn" class="openbtn">☰</button>
+          <button class="btn btn-primary" id="add-event-btn">Add Event <i class="fa fa-plus"></i></button>
+      </div>
+
       <table class="table w-75" id="events-table">
         <thead id="header-row">
           <tr>
@@ -63,7 +67,6 @@
         <tbody id="events-table-body"></tbody>
       </table>
 
-        <button class="btn btn-primary" id="add-event-btn" style="margin: 5px;">Add Event</button>
         <ul class="pagination justify-content-center" id="pagination"></ul>
 
       <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
