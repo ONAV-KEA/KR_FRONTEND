@@ -226,3 +226,13 @@ a.nav-link:hover {
   width: 50%;
   margin: 0 auto;
 }
+
+.btn.btn-primary {
+  background-color: #003c46;
+  border-color: #003c46;
+}
+
+.btn.btn-primary:hover {
+  background-color: #129bb0;
+  border-color: #129bb0;
+}
