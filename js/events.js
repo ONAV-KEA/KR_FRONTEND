@@ -64,9 +64,9 @@ function makeCards(events) {
         return `
         <div class="col-md-4 mb-4">
             <a href="/event.html?id=${event.id}" class="card-link">
-                <div class="card" style="width: 18rem; position: relative;">
+                <div class="card">
                     <img src="${event.imgRef === "" ? "../assets/images/coming-soon.png" : event.imgRef}" 
-                    class="card-img-top" alt="" style="width: 100%; height: 350px;">
+                    class="card-img-top" alt="" style="max-width: 100%; height: 350px; object-fit: cover;">
                     <div class="date-square">${dateText}</div>
                     <div class="card-body">
                         <h5 class="card-title">${event.name}</h5>
