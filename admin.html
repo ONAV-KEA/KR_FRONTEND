@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Kromann Reuter</title>
+    <script src="js/auth.js" type="module"></script>
     <link rel="stylesheet" href="./css/main.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -21,17 +22,28 @@
     />
   </head>
   <body>
-  <nav class="navbar main-color text-light">
-    <div class="container-fluid d-flex justify-content-between align-items-center">
-      <a class="navbar-brand" href="events.html">
-        <img src="assets/images/kromann-logo-white.svg" alt="Logo" width="300" class="d-inline-block align-text-top">
-      </a>
-      <div class="d-flex align-items-center">
-        <a href="events.html" class="nav-link me-5">Kommende begivenheder <i class="fa fa-calendar"></i></a>
-        <a href="admin.html" class="nav-link me-2">Login <i class="fa fa-user"></i></a>
+    <nav class="navbar main-color text-light">
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
+        <a class="navbar-brand" href="events.html">
+          <img
+            src="assets/images/kromann-logo-white.svg"
+            alt="Logo"
+            width="300"
+            class="d-inline-block align-text-top"
+          />
+        </a>
+        <div class="d-flex align-items-center">
+          <a href="events.html" class="nav-link me-5"
+            >Kommende begivenheder <i class="fa fa-calendar"></i
+          ></a>
+          <a href="admin.html" class="nav-link me-2" id="loginLink"
+            >Login <i class="fa fa-user"></i
+          ></a>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
 
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" id="closebtn" class="closebtn">×</a>
@@ -41,9 +53,13 @@
     </div>
 
     <div id="main">
-      <div class="container-fluid d-flex align-items-center justify-content-between">
+      <div
+        class="container-fluid d-flex align-items-center justify-content-between"
+      >
         <button id="openbtn" class="openbtn btn btn-primary">☰</button>
-          <button class="btn btn-primary mt-3" id="add-event-btn">Add Event <i class="fa fa-plus"></i></button>
+        <button class="btn btn-primary mt-3" id="add-event-btn">
+          Add Event <i class="fa fa-plus"></i>
+        </button>
       </div>
 
       <table class="table w-75" id="events-table">
@@ -67,7 +83,7 @@
         <tbody id="events-table-body"></tbody>
       </table>
 
-        <ul class="pagination justify-content-center" id="pagination"></ul>
+      <ul class="pagination justify-content-center" id="pagination"></ul>
 
       <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
         <div class="modal-dialog">
@@ -105,7 +121,8 @@
                 </div>
                 <div class="form-group">
                   <label for="eventDescription">Description</label>
-                  <textarea class="form-control"
+                  <textarea
+                    class="form-control"
                     id="eventDescription"
                     placeholder="Enter description..."
                   ></textarea>
@@ -136,20 +153,52 @@
                 <div class="form-group">
                   <label for="eventImg">Search Image</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" id="eventImg" aria-describedby="eventHelp" placeholder="Search for an image"/>
-                    <button id="search-image-btn" class="btn btn-primary" type="button">Search</button>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="eventImg"
+                      aria-describedby="eventHelp"
+                      placeholder="Search for an image"
+                    />
+                    <button
+                      id="search-image-btn"
+                      class="btn btn-primary"
+                      type="button"
+                    >
+                      Search
+                    </button>
                   </div>
                 </div>
-                <div class="imageDisplayWrapper" style="margin-top: 25px; display: flex; justify-content: center;">
-                  <img id="imageToDisplay" class="imageToDisplay" style="width: 300px; height: 400px;"/>
+                <div
+                  class="imageDisplayWrapper"
+                  style="
+                    margin-top: 25px;
+                    display: flex;
+                    justify-content: center;
+                  "
+                >
+                  <img
+                    id="imageToDisplay"
+                    class="imageToDisplay"
+                    style="width: 300px; height: 400px"
+                  />
                 </div>
               </form>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
                 Cancel
               </button>
-              <button id="btn-add-event" type="button" class="btn btn-primary" data-bs-dismiss="modal">
+              <button
+                id="btn-add-event"
+                type="button"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+              >
                 Add Event
               </button>
             </div>
@@ -158,19 +207,32 @@
       </div>
     </div>
 
-  <div class="container">
-    <footer class="py-3 my-4 default_cursor_cs">
-      <ul class="nav justify-content-center border-bottom pb-3 mb-3 default_cursor_cs">
-        <li class="nav-item"><a href="index.html" class="nav-link px-2 text-muted">Hjem</a></li>
-        <li class="nav-item"><a href="about.html" class="nav-link px-2 text-muted">Om os</a></li>
-        <li class="nav-item"><a href="contact.html" class="nav-link px-2 text-muted">Kontakt</a></li>
-        <li class="nav-item"><a href="login.html" class="nav-link px-2 text-muted">Log ind</a></li>
-      </ul>
-      <p class="text-center text-muted">© 2023 KEA</p>
-    </footer>
-  </div>
+    <div class="container">
+      <footer class="py-3 my-4 default_cursor_cs">
+        <ul
+          class="nav justify-content-center border-bottom pb-3 mb-3 default_cursor_cs"
+        >
+          <li class="nav-item">
+            <a href="index.html" class="nav-link px-2 text-muted">Hjem</a>
+          </li>
+          <li class="nav-item">
+            <a href="about.html" class="nav-link px-2 text-muted">Om os</a>
+          </li>
+          <li class="nav-item">
+            <a href="contact.html" class="nav-link px-2 text-muted">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a href="login.html" id="loginLink" class="nav-link px-2 text-muted"
+              >Log ind</a
+            >
+          </li>
+        </ul>
+        <p class="text-center text-muted">© 2023 KEA</p>
+      </footer>
+    </div>
 
     <script src="js/main.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/admin.js" type="module"></script>
+    <script src="js/links.js"></script>
   </body>
 </html>
