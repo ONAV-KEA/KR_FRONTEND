@@ -1,3 +1,5 @@
+import {getUserByToken} from "./auth.js";
+
 const API = 'http://localhost:8080/api/user';
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('loginForm').addEventListener('submit', login);
@@ -43,19 +45,6 @@ function login(event) {
 function getToken(){
     const localstorage_user = JSON.parse(localStorage.getItem('user'))
     return  localstorage_user.token
-}
-
-function getUserByToken(){
-    const localstorage_user = JSON.parse(localStorage.getItem('user'))
-    const options = {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${localstorage_user.token}`
-        }
-    }
-    return fetch(`${API}?token=${localstorage_user.token}`, options)
-    .then(res => res.json())
 }
 
 function logout(event) {

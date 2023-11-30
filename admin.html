@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <title>Kromann Reuter</title>
-    <script src="js/auth.js"></script>
+    <script src="js/auth.js" type="module"></script>
     <link rel="stylesheet" href="./css/main.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
@@ -38,7 +38,7 @@
           <a href="events.html" class="nav-link me-5"
             >Kommende begivenheder <i class="fa fa-calendar"></i
           ></a>
-          <a href="admin.html" class="nav-link me-2"
+          <a href="admin.html" class="nav-link me-2" id="loginLink"
             >Login <i class="fa fa-user"></i
           ></a>
         </div>
@@ -222,7 +222,9 @@
             <a href="contact.html" class="nav-link px-2 text-muted">Kontakt</a>
           </li>
           <li class="nav-item">
-            <a href="login.html" class="nav-link px-2 text-muted">Log ind</a>
+            <a href="login.html" id="loginLink" class="nav-link px-2 text-muted"
+              >Log ind</a
+            >
           </li>
         </ul>
         <p class="text-center text-muted">© 2023 KEA</p>
@@ -230,6 +232,6 @@
     </div>
 
     <script src="js/main.js"></script>
-    <script src="js/admin.js"></script>
+    <script src="js/admin.js" type="module"></script>
   </body>
 </html>

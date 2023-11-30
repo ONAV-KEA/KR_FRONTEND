@@ -1,7 +1,15 @@
+import { getUserByToken } from "./auth.js";
 const API = "http://localhost:8080/api/event"
 const PAGE_SIZE = 10;
 let sortColumn = "name";
 let sortDirection = 'asc';
+
+document.addEventListener("DOMContentLoaded", async function () {
+    const user = await getUserByToken();
+    if (user.role !== 'MANAGER' && user.role !== 'HEADCHEF') {
+        window.location.href = "events.html";
+    }
+});
 
 function encode(str) {
     str = str.replace(/&/g, "&amp;");
