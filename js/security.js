@@ -57,3 +57,10 @@ function getUserByToken(){
     return fetch(`${API}?token=${localstorage_user.token}`, options)
     .then(res => res.json())
 }
+
+function logout(event) {
+    event.preventDefault();
+
+    window.location.href = "index.html";
+    localStorage.removeItem('user');
+}
