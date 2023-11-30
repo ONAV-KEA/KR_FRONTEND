@@ -183,7 +183,8 @@ function deleteEvent(evt) {
     const options = {
         method: 'DELETE',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
         }
     };
 
@@ -267,7 +268,9 @@ async function handleEvent(evt) {
         const options = {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getToken()}`
+                        
             },
             body: JSON.stringify(eventData)
         };
@@ -288,7 +291,8 @@ function addEvent(eventData) {
     const options = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
         },
         body: JSON.stringify(eventData)
     };
@@ -301,6 +305,11 @@ function addEvent(eventData) {
         });
 
     myModal.hide();
+}
+
+function getToken(){
+    const localstorage_user = JSON.parse(localStorage.getItem('user'))
+    return  localstorage_user.token
 }
 
 getAllEvents(0);
