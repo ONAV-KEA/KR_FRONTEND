@@ -118,7 +118,14 @@ async function makeEventRows(events) {
 }
 
 async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
-    return await fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`)
+    return await fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             makeEventRows(data.content);
@@ -131,7 +138,15 @@ async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
 }
 
 async function getEventById(id) {
-    return await fetch(`${API}/${id}`)
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+
+        }
+    }
+    return await fetch(`${API}/${id}`, options)
         .then(response => response.json())
         .then(data => {
             return data;
@@ -208,7 +223,7 @@ async function searchUnsplashImage() {
 
     if (searchQuery === "") {
         // Handle empty search query
-        console.log("Empty search query");
+        console.log("Empty search query");A
         return;
     }
 
