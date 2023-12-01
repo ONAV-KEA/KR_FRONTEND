@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/api/event"
+const API = "http://localhost:8080/api"
 const PAGE_SIZE = 10;
 let sortColumn = "name";
 let sortDirection = 'asc';
@@ -12,6 +12,31 @@ function encode(str) {
     return str;
 }
 
+
+document.addEventListener("DOMContentLoaded", async () => {
+    const departments = await getAllDepartments();
+    const departmentSelect = document.getElementById("eventDepartments");
+
+    departments.forEach(department => {
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        checkbox.id = department.id;
+        checkbox.value = department.name;
+        checkbox.className = "form-check-input";
+
+        const label = document.createElement("label");
+        label.htmlFor = checkbox.id;
+        label.className = "form-check-label";
+        label.textContent = department.name;
+
+        const div = document.createElement("div");
+        div.className = "form-check";
+        div.appendChild(checkbox);
+        div.appendChild(label);
+
+        departmentSelect.appendChild(div);
+    });
+});
 document.getElementById("openbtn").addEventListener("click", openNav);
 document.getElementById("closebtn").addEventListener("click", closeNav);
 document.getElementById("add-event-btn").addEventListener("click", showAddEventModal);
@@ -118,7 +143,7 @@ async function makeEventRows(events) {
 }
 
 async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
-    return await fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`, {
+    return await fetch(`${API}/event?page=${page}&size=${size}&sort=${sort},${sortDirection}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -146,13 +171,33 @@ async function getEventById(id) {
 
         }
     }
-    return await fetch(`${API}/${id}`, options)
+    return await fetch(`${API}/event/${id}`, options)
         .then(response => response.json())
         .then(data => {
             return data;
         })
         .catch(error => {
             console.error('Error fetching event:', error);
+            throw error;
+        });
+}
+
+async function getAllDepartments() {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+
+        }
+    }
+    return await fetch(`${API}/department`, options)
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => {
+            console.error('Error fetching departments:', error);
             throw error;
         });
 }
@@ -203,7 +248,7 @@ function deleteEvent(evt) {
         }
     };
 
-    fetch(`${API}/${eventId}`, options)
+    fetch(`${API}/event/${eventId}`, options)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -260,13 +305,25 @@ async function handleEvent(evt) {
     const myModalEl = document.getElementById('event-modal');
     const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
 
+    let checkedDepartments = document.querySelectorAll("#eventDepartments input:checked");
+
+    if (checkedDepartments.length === 0) {
+        checkedDepartments = document.querySelectorAll("#eventDepartments input");
+    }
+
     const eventData = {
         name: encode(document.getElementById("eventName").value),
         startDate: encode(document.getElementById("eventStartDate").value),
         endDate: encode(document.getElementById("eventEndDate").value === "" ? document.getElementById("eventStartDate").value : document.getElementById("eventEndDate").value),
         description: encode(document.getElementById("eventDescription").value),
         location: encode(document.getElementById("eventLocation").value),
-        imgRef: encode(selectedImageUrl) // Use the globally stored selected image URL
+        imgRef: encode(selectedImageUrl),
+        departments: Array.from(checkedDepartments).map(department => {
+            return {
+                id: parseInt(department.id),
+                name: department.name
+            };
+        })
     };
 
     if (myModalEl.getAttribute('data-mode') === 'add') {
@@ -290,7 +347,7 @@ async function handleEvent(evt) {
             body: JSON.stringify(eventData)
         };
     
-        fetch(`${API}/${eventId}`, options)
+        fetch(`${API}/event/${eventId}`, options)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
@@ -312,7 +369,7 @@ function addEvent(eventData) {
         body: JSON.stringify(eventData)
     };
 
-    fetch(`${API}`, options)
+    fetch(`${API}/event`, options)
         .then(response => response.json())
         .then(data => {
             console.log(data);
