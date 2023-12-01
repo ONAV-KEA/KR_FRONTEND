@@ -15,6 +15,7 @@ function encode(str) {
 
 document.addEventListener("DOMContentLoaded", async () => {
     const departments = await getAllDepartments();
+    console.log(departments);
     const departmentSelect = document.getElementById("eventDepartments");
 
     departments.forEach(department => {
@@ -78,6 +79,7 @@ function resetModal() {
     document.getElementById("eventEndDate").value = "";
     document.getElementById("eventLocation").value = "";
     document.getElementById("eventImg").value = "";
+    document.getElementById("imageToDisplay").src = "";
 }
 
 function showAddEventModal() {
@@ -110,6 +112,21 @@ async function showEditEventModal(evt) {
     document.getElementById("eventStartDate").value = event.startDate;
     document.getElementById("eventEndDate").value = event.endDate;
     document.getElementById("eventLocation").value = event.location;
+    document.getElementById("eventImg").value = event.imgRef;
+    document.getElementById("imageToDisplay").src = event.imgRef;
+
+    // Uncheck all checkboxes
+    const checkboxes = document.querySelectorAll('#eventDepartments .form-check-input');
+    checkboxes.forEach(checkbox => checkbox.checked = false);
+
+    // Check the checkboxes for the departments of the event
+    event.departments.forEach(department => {
+        const checkbox = document.getElementById(department.id);
+        if (checkbox) {
+            checkbox.checked = true;
+        }
+    });
+
     eventBtn.innerHTML = "Save changes";
     myModal.show();
 }
@@ -321,9 +338,9 @@ async function handleEvent(evt) {
         departments: Array.from(checkedDepartments).map(department => {
             return {
                 id: parseInt(department.id),
-                name: department.name
+                name: department.value
             };
-        })
+        })        
     };
 
     if (myModalEl.getAttribute('data-mode') === 'add') {
