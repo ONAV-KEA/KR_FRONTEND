@@ -128,6 +128,11 @@ async function showEditEventModal(evt) {
     });
 
     eventBtn.innerHTML = "Save changes";
+    if (event.imgRef) {
+        const imageContainer = document.getElementById("imageToDisplay");
+        imageContainer.src = event.imgRef;
+        selectedImageUrl = event.imgRef;
+    }
     myModal.show();
 }
 
