@@ -1,4 +1,5 @@
 const API = 'http://localhost:8080/api/user';
+import { getToken } from './getToken.js';
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('loginForm').addEventListener('submit', login);
 });
@@ -51,11 +52,6 @@ function getUserByToken(){
     }
     return fetch(`${API}?token=${localstorage_user.token}`, options)
     .then(res => res.json())
-}
-
-function getToken(){
-    const localstorage_user = JSON.parse(localStorage.getItem('user'))
-    return  localstorage_user.token
 }
 
 function logout(event) {

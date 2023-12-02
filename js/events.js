@@ -1,10 +1,21 @@
-const API = "http://localhost:8080/api/event"
+import { getToken } from './getToken.js';
+const API = "http://localhost:8080/api";
 const PAGE_SIZE = 6;
 let sortColumn = "startDate";
 let sortDirection = 'asc';
 
-async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
-    return await fetch(`${API}?page=${page}&size=${size}&sort=${sort},${sortDirection}`)
+async function getAllEventsByDepartmentId(page = 0, size = PAGE_SIZE, sort = sortColumn) {
+    const user = await getUserByToken()
+    const departmentId = user.department.id
+    
+    return await fetch(`${API}/event/department/${departmentId}?page=${page}&size=${size}&sort=${sort},${sortDirection}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+
+        }
+    })
         .then(response => response.json())
         .then(data => {
             makeCards(data.content);
@@ -14,6 +25,18 @@ async function getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn) {
             console.error('Error fetching events:', error);
             throw error;
         });
+}
+
+function getUserByToken(){
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        }
+    }
+    return fetch(`${API}/user?token=${getToken()}`, options)
+    .then(res => res.json())
 }
 
 function displayPagination(totalPages, currentPage) {
@@ -46,12 +69,12 @@ document.querySelector('#pagination').onclick = function (evt) {
     evt.preventDefault();
     if (evt.target.tagName === 'A' && evt.target.hasAttribute('data-page')) {
         const page = parseInt(evt.target.getAttribute('data-page'));
-        getAllEvents(page);
+        getAllEventsByDepartmentId(page);
     }
 };
 
 document.addEventListener("DOMContentLoaded", async () => {
-    await getAllEvents(page = 0, size = PAGE_SIZE, sort = sortColumn);
+    await getAllEventsByDepartmentId();
 });
 
 function makeCards(events) {

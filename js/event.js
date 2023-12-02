@@ -1,7 +1,8 @@
-// get id from url
+import { getToken } from './getToken.js';
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
 const API = 'http://localhost:8080/api/event';
+
 
 document.addEventListener("DOMContentLoaded", async () => {
     const event = await getEventById(id);
@@ -20,7 +21,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 })
 
 async function getEventById(id) {
-    return await fetch(`${API}/${id}`)
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        }
+    }
+    return await fetch(`${API}/${id}`, options)
         .then(response => response.json())
         .then(data => {
             return data;
