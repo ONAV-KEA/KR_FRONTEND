@@ -47,21 +47,20 @@
 
     <div id="mySidebar" class="sidebar">
       <a href="javascript:void(0)" id="closebtn" class="closebtn">×</a>
-      <a href="admin.html">Users</a>
-      <a href="orders.html">Orders</a>
-      <a href="#">Link</a>
+      <a href="" id="adminLink">Event Administration</a>
+      <a href="" id="ordersLink">Event Attendance</a>
+      <a href="" id="userLink">Users</a>
+    </div>
+    <div
+      class="container-fluid d-flex align-items-center justify-content-between"
+    >
+      <button id="openbtn" class="openbtn btn btn-primary">☰</button>
+      <button class="btn btn-primary mt-3" id="add-event-btn">
+        Add Event <i class="fa fa-plus"></i>
+      </button>
     </div>
 
     <div id="main">
-      <div
-        class="container-fluid d-flex align-items-center justify-content-between"
-      >
-        <button id="openbtn" class="openbtn btn btn-primary">☰</button>
-        <button class="btn btn-primary mt-3" id="add-event-btn">
-          Add Event <i class="fa fa-plus"></i>
-        </button>
-      </div>
-
       <table class="table w-75" id="events-table">
         <thead id="header-row">
           <tr>
