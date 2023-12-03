@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>Kromann Reumert</title>
+    <script src="js/auth.js" type="module"></script>
+    <link rel="stylesheet" href="./css/main.css" />
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+    />
+    <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+    ></script>
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+</head>
+<body>
+<nav class="navbar main-color text-light">
+    <div
+            class="container-fluid d-flex justify-content-between align-items-center"
+    >
+        <a class="navbar-brand" href="events.html">
+            <img
+                    src="assets/images/kromann-logo-white.svg"
+                    alt="Logo"
+                    width="300"
+                    class="d-inline-block align-text-top"
+            />
+        </a>
+        <div class="d-flex align-items-center">
+            <a href="events.html" class="nav-link me-5"
+            >Kommende begivenheder <i class="fa fa-calendar"></i
+            ></a>
+            <a href="admin.html" class="nav-link me-2" id="loginLink"
+            >Login <i class="fa fa-user"></i
+            ></a>
+        </div>
+    </div>
+</nav>
+
+<div id="mySidebar" class="sidebar">
+    <a href="javascript:void(0)" id="closebtn" class="closebtn">×</a>
+    <a href="admin.html">Users</a>
+    <a href="orders.html">Orders</a>
+    <a href="#">Link</a>
+</div>
+
+<div id="main">
+    <div
+            class="container-fluid d-flex align-items-center justify-content-between"
+    >
+        <button id="openbtn" class="openbtn btn btn-primary">☰</button>
+        <button class="btn btn-primary mt-3" id="add-event-btn">
+            Add Event <i class="fa fa-plus"></i>
+        </button>
+    </div>
+
+    <table class="table w-75" id="events-table">
+        <thead id="header-row">
+        <tr>
+            <th scope="col">Name <i id="sort-name" class="fa fa-sort"></i></th>
+            <th scope="col">
+                Start Date <i id="sort-startDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+                End Date <i id="sort-endDate" class="fa fa-sort"></i>
+            </th>
+            <th scope="col">
+                Confirmed attendance <i id="confirmedAttendanceCount"></i>
+            </th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="events-table-body"></tbody>
+    </table>
+
+    <ul class="pagination justify-content-center" id="pagination"></ul>
+
+    <div class="modal fade" tabindex="-1" aria-hidden="true" id="event-modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="event-modal-title">Add Event</h3>
+                    <button
+                            type="button"
+                            class="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                    ></button>
+                </div>
+                <div class="modal-body">
+                    <form id="eventForm" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="eventName">Event Name</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="eventName"
+                                    aria-describedby="eventHelp"
+                                    placeholder="Enter event name"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="eventLocation">Location</label>
+                            <input
+                                    type="text"
+                                    class="form-control"
+                                    id="eventLocation"
+                                    aria-describedby="eventHelp"
+                                    placeholder="Enter event location"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDescription">Description</label>
+                            <textarea
+                                    class="form-control"
+                                    id="eventDescription"
+                                    placeholder="Enter description..."
+                            ></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventStartDate">Start Date</label>
+                            <input
+                                    type="date"
+                                    class="form-control"
+                                    id="eventStartDate"
+                                    aria-describedby="eventHelp"
+                                    placeholder="Enter event start date"
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="eventEndDate"
+                            >End Date (leave blank if same as start date)</label
+                            >
+                            <input
+                                    type="date"
+                                    class="form-control"
+                                    id="eventEndDate"
+                                    aria-describedby="eventHelp"
+                                    placeholder="Enter event end date (Leave blank if same as start date)"
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label for="eventDepartments"
+                            >Departments (select none if all departments should be
+                                invited)</label
+                            >
+                            <div id="eventDepartments">
+                                <!-- Checkboxes will be added here -->
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="eventImg">Search Image</label>
+                            <div class="input-group">
+                                <input
+                                        type="text"
+                                        class="form-control"
+                                        id="eventImg"
+                                        aria-describedby="eventHelp"
+                                        placeholder="Search for an image"
+                                />
+                                <button
+                                        id="search-image-btn"
+                                        class="btn btn-primary"
+                                        type="button"
+                                >
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                                class="imageDisplayWrapper"
+                                style="
+                    margin-top: 25px;
+                    display: flex;
+                    justify-content: center;
+                  "
+                        >
+                            <img
+                                    id="imageToDisplay"
+                                    class="imageToDisplay"
+                                    style="width: 300px; height: 400px"
+                            />
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button
+                            type="button"
+                            class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                            id="btn-add-event"
+                            type="button"
+                            class="btn btn-primary"
+                            data-bs-dismiss="modal"
+                    >
+                        Add Event
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <footer class="py-3 my-4 default_cursor_cs">
+        <ul
+                class="nav justify-content-center border-bottom pb-3 mb-3 default_cursor_cs"
+        >
+            <li class="nav-item">
+                <a href="index.html" class="nav-link px-2 text-muted">Hjem</a>
+            </li>
+            <li class="nav-item">
+                <a href="about.html" class="nav-link px-2 text-muted">Om os</a>
+            </li>
+            <li class="nav-item">
+                <a href="contact.html" class="nav-link px-2 text-muted">Kontakt</a>
+            </li>
+            <li class="nav-item">
+                <a href="login.html" id="loginLink" class="nav-link px-2 text-muted"
+                >Log ind</a
+                >
+            </li>
+        </ul>
+        <p class="text-center text-muted">© 2023 KEA</p>
+    </footer>
+</div>
+
+<script src="js/main.js"></script>
+<script src="js/admin.js" type="module"></script>
+<script src="js/links.js"></script>
+</body>
+</html>
