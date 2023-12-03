@@ -44,3 +44,40 @@ function formatDate(dateString) {
     const options = { month: 'short', day: 'numeric' };
     return date.toLocaleDateString('en-US', options);
 }
+
+document.getElementById('eventAnswer').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    const participating = document.getElementById('radioAnswer1').checked;
+    const response = { participating: participating, additionalNote: '' };
+
+    try {
+        await sendUserResponse(id, response);
+        alert('Svar modtaget.');
+    } catch (error) {
+        console.error('Fejl:', error);
+        alert('Fejl.');
+    }
+});
+
+async function sendUserResponse(eventId, userResponse) {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(userResponse)
+    };
+
+    const fetchResponse = await fetch(`${API}/${eventId}/respond`, options);
+    if (!fetchResponse.ok) {
+        throw new Error(`HTTP error! status: ${fetchResponse.status}`);
+    }
+    return fetchResponse.json();
+}
+
+document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
+document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
+
+
