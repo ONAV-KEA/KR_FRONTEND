@@ -45,19 +45,24 @@ function formatDate(dateString) {
     return date.toLocaleDateString('en-US', options);
 }
 
-document.getElementById('eventAnswer').addEventListener('submit', async function(e) {
-    e.preventDefault();
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('eventAnswer').addEventListener('submit', async function(e) {
+        e.preventDefault();
 
-    const participating = document.getElementById('radioAnswer1').checked;
-    const response = { participating: participating, additionalNote: '' };
+        const participating = document.getElementById('radioAnswer1').checked;
+        const additionalNote = document.getElementById('additionalNote').value;
+        const response = { participating: participating, additionalNote: additionalNote };
 
-    try {
-        await sendUserResponse(id, response);
-        alert('Svar modtaget.');
-    } catch (error) {
-        console.error('Fejl:', error);
-        alert('Fejl.');
-    }
+        try {
+            await sendUserResponse(id, response);
+            alert('Svar modtaget.');
+            document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
+        } catch (error) {
+            console.error('Fejl:', error);
+            alert('Fejl.');
+            document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
+        }
+    });
 });
 
 async function sendUserResponse(eventId, userResponse) {
@@ -77,7 +82,6 @@ async function sendUserResponse(eventId, userResponse) {
     return fetchResponse.json();
 }
 
-document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
-document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
+
 
 
