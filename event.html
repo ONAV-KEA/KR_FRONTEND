@@ -56,48 +56,58 @@
           <p id="event-description"></p>
           <h3 id="form-title"></h3>
 
-          <form id="eventAnswer" class="d-flex flex-column" action="http://localhost:8080/api/event/{eventId}/respond">
-          <div class="form-check">
-            <input
-              class="form-check-input event-answer"
-              type="radio"
-              name="eventAnswer"
-              id="radioAnswer1"
-              checked
-            />
-            <label
-              class="form-check-label event-answer-label"
-              for="radioAnswer1"
-            >
-              Jeg Deltager
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input event-answer"
-              type="radio"
-              name="eventAnswer"
-              id="radioAnswer2"
-            />
-            <label
-              class="form-check-label event-answer-label"
-              for="radioAnswer2"
-            >
-              Jeg Deltager Ikke
-            </label>
-          </div>
-          <div class="form-group">
-            <label for="additionalNote">Kommentar:</label>
-            <input type="text" class="form-control" id="additionalNote" name="additionalNote">
-          </div>
+          <form id="eventAnswer" class="d-flex flex-column">
+            <div class="form-check">
+              <input
+                class="form-check-input event-answer"
+                type="radio"
+                name="eventAnswer"
+                id="radioAnswer1"
+                checked
+              />
+              <label
+                class="form-check-label event-answer-label"
+                for="radioAnswer1"
+              >
+                Jeg Deltager
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input event-answer"
+                type="radio"
+                name="eventAnswer"
+                id="radioAnswer2"
+              />
+              <label
+                class="form-check-label event-answer-label"
+                for="radioAnswer2"
+              >
+                Jeg Deltager Ikke
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="additionalNote">Kommentar:</label>
+              <input
+                type="text"
+                class="form-control"
+                id="additionalNote"
+                name="additionalNote"
+              />
+            </div>
 
-            <button type="submit" id="eventAnswer-btn" class="btn btn-primary mt-3">
-            Afgiv svar
-          </button>
-        </form>
+            <button
+              type="submit"
+              id="eventAnswer-btn"
+              class="btn btn-primary mt-3"
+            >
+              Afgiv svar
+            </button>
+          </form>
+          <div id="responseMessage"></div>
         </div>
       </div>
-
+    </div>
 
     <div class="container">
       <footer class="py-3 my-4 default_cursor_cs">
