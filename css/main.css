@@ -149,6 +149,17 @@ a.nav-link:hover {
   font-size: 16px;
 }
 
+.participating-square {
+  position: absolute;
+  color: white;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(0, 60, 70, 0.86);
+  border-radius: 5px;
+  padding: 5px;
+  font-size: 16px;
+}
+
 .card-title {
   font-size: 20px;
   font-weight: bold;
@@ -175,7 +186,6 @@ a.nav-link:hover {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
-
 
 .card-link {
   text-decoration: none;

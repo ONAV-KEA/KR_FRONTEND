@@ -77,13 +77,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     await getAllEventsByDepartmentId();
 });
 
-function makeCards(events) {
-    const cards = events.map(event => {
+async function makeCards(events) {
+    const user = await getUserByToken();
+    const cards = await Promise.all(events.map(async event => {
+        const isParticipating = await isUserParticipating(user.id, event.id);
         let dateText = formatDate(event.startDate);
 
         if (event.endDate && event.startDate !== event.endDate) {
             dateText += ` - ${formatDate(event.endDate)}`;
         }
+
+        let participatingText = isParticipating ? "Du deltager" : "Du deltager ikke";
         return `
         <div class="col-md-4 mb-4">
             <a href="/event.html?id=${event.id}" class="card-link">
@@ -91,18 +95,32 @@ function makeCards(events) {
                     <img src="${event.imgRef === "" ? "../assets/images/coming-soon.png" : event.imgRef}" 
                     class="card-img-top" alt="" style="max-width: 100%; height: 350px; object-fit: cover;">
                     <div class="date-square">${dateText}</div>
-                    <div class="card-body">
-                        <h5 class="card-title">${event.name}</h5>
-                        <p class="card-text">${event.location}</p>
-                    </div>
+                        <div class="participating-square">${participatingText}</div>
+                            <div class="card-body">
+                                <h5 class="card-title">${event.name}</h5>
+                                <p class="card-text">${event.location}</p>
+                            </div>
+                        </div>
                 </div>
             </a>
         </div>
         `;
-    });
+    }));
 
     const cardContainer = document.getElementById("cardsRow");
     cardContainer.innerHTML = cards.join("");
+}
+
+async function isUserParticipating(userId, eventId) {
+    const options = {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        }
+    }
+    return fetch(`${API}/event/participating/${userId}/${eventId}`, options)
+    .then(res => res.json())
 }
 
 
