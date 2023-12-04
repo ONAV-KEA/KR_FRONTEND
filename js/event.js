@@ -46,22 +46,21 @@ function formatDate(dateString) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('eventAnswer').addEventListener('submit', async function(e) {
+    document.getElementById('eventAnswer').addEventListener('submit', function(e) {
         e.preventDefault();
 
         const participating = document.getElementById('radioAnswer1').checked;
         const additionalNote = document.getElementById('additionalNote').value;
         const response = { participating: participating, additionalNote: additionalNote };
 
-        try {
-            await sendUserResponse(id, response);
-            alert('Svar modtaget.');
-            document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
-        } catch (error) {
-            console.error('Fejl:', error);
-            alert('Fejl.');
-            document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
-        }
+        sendUserResponse(id, response)
+            .then(() => {
+                document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
+            })
+            .catch((error) => {
+                console.error('Fejl:', error);
+                document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
+            });
     });
 });
 
@@ -74,6 +73,8 @@ async function sendUserResponse(eventId, userResponse) {
         },
         body: JSON.stringify(userResponse)
     };
+
+    console.log(options);
 
     const fetchResponse = await fetch(`${API}/${eventId}/respond`, options);
     if (!fetchResponse.ok) {
