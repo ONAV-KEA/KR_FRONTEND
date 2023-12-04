@@ -12,10 +12,70 @@ function encode(str) {
     return str;
 }
 
+document.getElementById('adminLink').addEventListener('click', (evt) => {
+    evt.preventDefault();
+    document.getElementById('main').innerHTML = '';
+    // create bootstrap table
+    const table = document.createElement('table');
+    table.id = 'events-table';
+    table.classList.add('table', 'table-striped', 'table-hover', 'w-75');
+    table.innerHTML = `
+        <thead>
+            <tr>
+                <th id="sort-name">Event Name</th>
+                <th id="sort-startDate">Start Date</th>
+                <th id="sort-endDate">End Date</th>
+                <th id="sort-location">Location</th>
+                <th>View Event</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody id="events-table-body"></tbody>
+    `;
+    document.getElementById('main').appendChild(table);
+
+    // create pagination
+    const pagination = document.createElement('ul');
+    pagination.classList.add('pagination', 'justify-content-center');
+    pagination.id = 'pagination';
+    document.getElementById('main').appendChild(pagination);
+
+    getAllEvents();
+
+    // set up pagination event handler
+    document.querySelector('#pagination').onclick = function (evt) {
+        evt.preventDefault();
+        if (evt.target.tagName === 'A' && evt.target.hasAttribute('data-page')) {
+            const page = parseInt(evt.target.getAttribute('data-page'));
+            getAllEvents(page);
+        }
+    };
+});
+
+// admin.js
+document.getElementById('ordersLink').addEventListener('click', async (evt) => {
+    evt.preventDefault();
+
+    if (!document.getElementById('ordersScript')) {
+        const script = document.createElement('script');
+        script.id = 'ordersScript';
+        script.src = 'js/orders.js';
+        script.type = 'module';
+        document.body.appendChild(script);
+
+        // Wait for the script to load
+        await new Promise(resolve => script.onload = resolve);
+
+        // Call the setup function
+        import('./orders.js').then(module => {
+            module.setupOrdersLink(evt);
+        });
+    }
+});
 
 document.addEventListener("DOMContentLoaded", async () => {
     const departments = await getAllDepartments();
-    console.log(departments);
     const departmentSelect = document.getElementById("eventDepartments");
 
     departments.forEach(department => {
