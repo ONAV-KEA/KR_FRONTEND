@@ -101,8 +101,8 @@ async function makeCards(events) {
                                 <p class="card-text">${event.location}</p>
                             </div>
                         </div>
+                    </a>
                 </div>
-            </a>
         </div>
         `;
     }));
