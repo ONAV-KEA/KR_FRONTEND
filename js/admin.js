@@ -467,3 +467,47 @@ function getToken(){
 }
 
 getAllEvents(0);
+
+document.getElementById('download-csv').addEventListener('click', async (evt) => {
+    evt.preventDefault();
+    const csv = convertToCsv(await getAllEventsForCsv());
+    downloadCsv(csv);
+});
+
+async function getAllEventsForCsv() {
+    return await fetch(`${API}/event`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        }
+    })
+        .then(response => response.json())
+        .then(data => {
+            return data.content;
+        })
+        .catch(error => {
+            console.error('Error fetching events:', error);
+            throw error;
+        });
+}
+
+function convertToCsv(events) {
+    const rows = events.map(event => {
+        return `"${event.name}",${event.participants.length}`;
+    });
+    return rows.join('\n');
+}
+
+function downloadCsv(csv) {
+    const filename = 'event-attendees.csv';
+    const csvFile = new Blob([csv], {type: 'text/csv'});
+    const downloadLink = document.createElement('a');
+
+    downloadLink.download = filename;
+    downloadLink.href = window.URL.createObjectURL(csvFile);
+    downloadLink.style.display = 'none';
+    document.body.appendChild(downloadLink);
+
+    downloadLink.click();
+}
