@@ -15,6 +15,9 @@ function encode(str) {
 document.getElementById('adminLink').addEventListener('click', (evt) => {
     evt.preventDefault();
     document.getElementById('main').innerHTML = '';
+    //Change the button display
+    document.getElementById("add-event-btn").style.display = "block";
+    document.getElementById("add-user-btn").style.display = "none";
     // create bootstrap table
     const table = document.createElement('table');
     table.id = 'events-table';
@@ -57,7 +60,6 @@ document.getElementById('adminLink').addEventListener('click', (evt) => {
 document.getElementById('ordersLink').addEventListener('click', async (evt) => {
     evt.preventDefault();
 
-    if (!document.getElementById('ordersScript')) {
         const script = document.createElement('script');
         script.id = 'ordersScript';
         script.src = 'js/orders.js';
@@ -71,13 +73,11 @@ document.getElementById('ordersLink').addEventListener('click', async (evt) => {
         import('./orders.js').then(module => {
             module.setupOrdersLink(evt);
         });
-    }
 });
 
 document.getElementById('userLink').addEventListener('click', async (evt) => {
     evt.preventDefault();
 
-    if (!document.getElementById('usersScript')) {
         const script = document.createElement('script');
         script.id = 'usersScript';
         script.src = 'js/users.js';
@@ -91,7 +91,7 @@ document.getElementById('userLink').addEventListener('click', async (evt) => {
         import('./users.js').then(module => {
             module.setupUserLink(evt);
         });
-    }
+
 });
 
 document.addEventListener("DOMContentLoaded", async () => {

@@ -39,6 +39,10 @@ export async function setupUserLink(evt) {
 async function makeUserRows(users) {
     const tableBody = document.getElementById("users-table-body");
 
+    //Change the button display
+    document.getElementById("add-event-btn").style.display = "none";
+    document.getElementById("add-user-btn").style.display = "block";
+
     const rows = users.map(user => `
         <tr>
             <td>${user.id}</td>
