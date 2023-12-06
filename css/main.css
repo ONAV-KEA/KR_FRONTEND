@@ -84,10 +84,8 @@ a.nav-link:hover {
 .sidebar {
   height: 100%;
   width: 0;
-  position: fixed;
+  position: absolute;
   z-index: 1;
-  top: 30;
-  left: 0;
   background-color: #056373;
   overflow-x: hidden;
   transition: 0.5s;
@@ -95,12 +93,12 @@ a.nav-link:hover {
 }
 
 .sidebar a {
-  padding: 8px 8px 8px 32px;
+  padding: 10px;
   text-decoration: none;
   font-size: 25px;
   color: white;
   display: block;
-  transition: 0.3s;
+  transition: 0.5s;
 }
 
 .sidebar a:hover {

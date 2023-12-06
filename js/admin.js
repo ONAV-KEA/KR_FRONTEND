@@ -74,6 +74,26 @@ document.getElementById('ordersLink').addEventListener('click', async (evt) => {
     }
 });
 
+document.getElementById('userLink').addEventListener('click', async (evt) => {
+    evt.preventDefault();
+
+    if (!document.getElementById('usersScript')) {
+        const script = document.createElement('script');
+        script.id = 'usersScript';
+        script.src = 'js/users.js';
+        script.type = 'module';
+        document.body.appendChild(script);
+
+        // Wait for the script to load
+        await new Promise(resolve => script.onload = resolve);
+
+        // Call the setup function
+        import('./users.js').then(module => {
+            module.setupUserLink(evt);
+        });
+    }
+});
+
 document.addEventListener("DOMContentLoaded", async () => {
     const departments = await getAllDepartments();
     const departmentSelect = document.getElementById("eventDepartments");
@@ -124,7 +144,7 @@ function handleCrudClicks() {
 }
 
 function openNav() {
-    document.getElementById("mySidebar").style.width = "150px";
+    document.getElementById("mySidebar").style.width = "180px";
 }
 
 function closeNav() {
