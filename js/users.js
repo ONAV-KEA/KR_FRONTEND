@@ -81,7 +81,7 @@ export async function setupUserLink(evt) {
             </select>
         </div>
         
-        <button type="submit" class="btn btn-primary">Create</button>
+        <button type="submit" class="btn btn-primary" id="btn-create-user">Create</button>
     `;
     formContainer.appendChild(form);
     formColumn.appendChild(formContainer);
@@ -95,6 +95,7 @@ export async function setupUserLink(evt) {
     pagination.id = 'pagination';
     document.getElementById('main').appendChild(pagination);
 
+    handleCrudClicks(evt);
     await getAllUsers();
 }
 
@@ -173,25 +174,6 @@ document.querySelector('#pagination').onclick = function (evt) {
     }
 };
 
-// Add an event listener to handle form submission
-document.getElementById('main').addEventListener('submit', async function (evt) {
-    evt.preventDefault();
-    if (evt.target.id === 'user-form') {
-        const formData = new FormData(evt.target);
-        const userData = {};
-        formData.forEach((value, key) => {
-            userData[key] = value;
-        });
-
-        try {
-            await createUser(userData); // Implement this function to send data to the backend
-            // Optionally, refresh the user list after creation
-            await getAllUsers();
-        } catch (error) {
-            console.error('Error creating user:', error);
-        }
-    }
-});
 
 async function createUser(userData) {
     return await fetch(`${API}/user/createUser`, {
@@ -209,42 +191,30 @@ async function createUser(userData) {
         });
 }
 
-    document.getElementById('main').addEventListener('click', async function (evt) {
-        evt.preventDefault();
-        if (evt.target.classList.contains('btn-delete-user')) {
-            const username = evt.target.getAttribute('data-event'); // Assuming username is passed as 'data-event'
-            try {
-                await deleteUser(username); // Call deleteUser function with the username
-                // Optionally, refresh the user list after deletion
-                await getAllUsers();
-            } catch (error) {
-                console.error('Error deleting user:', error);
-            }
-        }
-    });
 
 
-
-async function deleteUser(username) {
-    const userObject = {
-        username: username
-    };
-
+async function deleteUser(id) {
     try {
-        const response = await fetch(`${API}/user/deleteUser`, {
+        const response = await fetch(`${API}/user/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
                 Authorization: `Bearer ${getToken()}`
             },
-            body: JSON.stringify(userObject)
         });
 
         if (!response.ok) {
             throw new Error('Network response was not ok');
         }
 
-        const data = await response.json();
+        const contentType = response.headers.get("content-type");
+        let data;
+        if (contentType && contentType.indexOf("application/json") !== -1) {
+            data = await response.json();
+        } else {
+            data = await response.text();
+        }
+
         console.log('Response data:', data);
         // Perform additional actions if needed
 
@@ -254,6 +224,48 @@ async function deleteUser(username) {
     }
 }
 
+function handleCrudClicks(evt){
+    evt.preventDefault();
+
+    // Add an event listener to handle form submission
+    document.getElementById('btn-create-user').addEventListener('click', async function (evt) {
+        evt.preventDefault();
+        console.log("submit");
+        const userData = {
+            name: document.getElementById('name').value,
+            email: document.getElementById('email').value,
+            password: document.getElementById('password').value,
+            username: document.getElementById('username').value,
+            role: document.getElementById('role').value,
+            department: {
+                id: document.getElementById('department').value,
+                // Add other department properties if needed
+            }
+        };
+        
+
+        console.log(userData);
+    
+        try {
+            await createUser(userData); // Implement this function to send data to the backend
+            // Optionally, refresh the user list after creation
+            await getAllUsers();
+        } catch (error) {
+            console.error('Error creating user:', error);
+        }
+    });
+    
+
+document.getElementById('main').addEventListener('click', async function (evt) {
+    evt.preventDefault();
+    if (evt.target.matches('.btn-delete-user')) {
+        const userId = evt.target.getAttribute('data-event');
+        await deleteUser(userId);
+        await getAllUsers();
+    }
+});
+
+}
 
 
 
