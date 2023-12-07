@@ -21,7 +21,6 @@ export async function setupUserLink(evt) {
                 <th>Role</th>
                 <th>Department</th>
                 <th></th>
-                <th></th>
             </tr>
         </thead>
         <tbody id="users-table-body"></tbody>
@@ -37,11 +36,9 @@ export async function setupUserLink(evt) {
 }
 
 async function makeUserRows(users) {
-    const tableBody = document.getElementById("users-table-body");
-
-    //Change the button display
     document.getElementById("add-event-btn").style.display = "none";
-    document.getElementById("add-user-btn").style.display = "block";
+
+    const tableBody = document.getElementById("users-table-body");
 
     const rows = users.map(user => `
         <tr>
@@ -51,9 +48,6 @@ async function makeUserRows(users) {
             <td>${user.username}</td>
             <td>${user.role}</td>
             <td>${user.department.name}</td>
-            <td>
-                <button class="btn btn-outline-primary btn-sm btn-edit-user" data-event="${user.id}">Edit <i class="fa fa-pencil"></i></button>
-            </td>
             <td>
                 <button class="btn btn-danger btn-sm btn-delete-user" data-event="${user.id}">Delete <i class="fa fa-trash"></i></button>
             </td>

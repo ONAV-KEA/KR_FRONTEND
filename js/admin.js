@@ -13,11 +13,9 @@ function encode(str) {
 }
 
 document.getElementById('adminLink').addEventListener('click', (evt) => {
-    evt.preventDefault();
     document.getElementById('main').innerHTML = '';
     //Change the button display
     document.getElementById("add-event-btn").style.display = "block";
-    document.getElementById("add-user-btn").style.display = "none";
     // create bootstrap table
     const table = document.createElement('table');
     table.id = 'events-table';
@@ -45,22 +43,12 @@ document.getElementById('adminLink').addEventListener('click', (evt) => {
     document.getElementById('main').appendChild(pagination);
 
     getAllEvents();
-
-    // set up pagination event handler
-    document.querySelector('#pagination').onclick = function (evt) {
-        evt.preventDefault();
-        if (evt.target.tagName === 'A' && evt.target.hasAttribute('data-page')) {
-            const page = parseInt(evt.target.getAttribute('data-page'));
-            getAllEvents(page);
-        }
-    };
 });
 
 // admin.js
 document.getElementById('ordersLink').addEventListener('click', async (evt) => {
-    evt.preventDefault();
-
-        const script = document.createElement('script');
+        evt.preventDefault();
+    const script = document.createElement('script');
         script.id = 'ordersScript';
         script.src = 'js/orders.js';
         script.type = 'module';
@@ -68,9 +56,8 @@ document.getElementById('ordersLink').addEventListener('click', async (evt) => {
 
         // Wait for the script to load
         await new Promise(resolve => script.onload = resolve);
-
-        // Call the setup function
-        import('./orders.js').then(module => {
+    // Call the setup function
+    import('./orders.js').then(module => {
             module.setupOrdersLink(evt);
         });
 });

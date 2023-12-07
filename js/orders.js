@@ -45,9 +45,8 @@ async function makeEventRows(events, eventUsersMap) {
     const tableBody = document.getElementById("orders-table-body");
 
     //Change the button display
-    document.getElementById("add-event-btn").style.display = "block";
-    document.getElementById("add-user-btn").style.display = "none";
-   
+    document.getElementById("add-event-btn").style.display = "none";
+
     const rows = events.map(event => {
         const users = eventUsersMap.get(event.id);
         let userRows = '';
