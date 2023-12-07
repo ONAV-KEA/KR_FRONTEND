@@ -8,9 +8,18 @@ let sortDirection = 'asc';
 export async function setupUserLink(evt) {
     evt.preventDefault();
     document.getElementById('main').innerHTML = '';
+
+    const row = document.createElement('div');
+    row.classList.add('row', 'my-3', 'justify-content-between');
+
+    const tableColumn = document.createElement('div');
+    tableColumn.classList.add('col-xl-6');
+    const header = document.createElement('h3');
+    header.classList.add('text-center');
+    header.innerHTML = 'Current Users';
     const table = document.createElement('table');
     table.id = 'users-table';
-    table.classList.add('table', 'table-striped', 'table-hover', 'w-75');
+    table.classList.add('table', 'table-striped', 'table-hover', 'm-4');
     table.innerHTML = `
         <thead>
             <tr>
@@ -25,10 +34,64 @@ export async function setupUserLink(evt) {
         </thead>
         <tbody id="users-table-body"></tbody>
     `;
-    document.getElementById('main').appendChild(table);
+    tableColumn.appendChild(header);
+    tableColumn.appendChild(table);
+
+    const formColumn = document.createElement('div');
+    formColumn.classList.add('col-xl-4');
+    const formContainer = document.createElement('div');
+    formContainer.classList.add('w-100', 'p-3'); // Adjust styling as needed
+
+    const form = document.createElement('form');
+    form.id = 'user-form';
+    form.innerHTML = `
+        <h3 class="text-center">Create New User</h3>
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email Address</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" name="password">
+        </div>
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select class="form-select" id="role" name="role" required>
+                <option value="EMPLOYEE">EMPLOYEE</option>
+                <option value="HEADCHEF">HEADCHEF</option>
+                <option value="MANAGER">MANAGER</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="department" class="form-label">Department</label>
+            <select class="form-select" id="department" name="department" required>
+                <option value="1">IT</option>
+                <option value="2">Økonomi</option>
+                <option value="3">Advokat</option>
+                <option value="4">Køkken</option>
+                <option value="5">P&D</option>
+            </select>
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Create</button>
+    `;
+    formContainer.appendChild(form);
+    formColumn.appendChild(formContainer);
+
+    row.appendChild(tableColumn);
+    row.appendChild(formColumn);
+    document.getElementById('main').appendChild(row);
 
     const pagination = document.createElement('ul');
-    pagination.classList.add('pagination', 'justify-content-center');
+    pagination.classList.add('pagination', 'justify-content-center', 'mt-3');
     pagination.id = 'pagination';
     document.getElementById('main').appendChild(pagination);
 
@@ -109,3 +172,102 @@ document.querySelector('#pagination').onclick = function (evt) {
         getAllUsers(page).then(r => console.log(r));
     }
 };
+
+// Add an event listener to handle form submission
+document.getElementById('main').addEventListener('submit', async function (evt) {
+    evt.preventDefault();
+    if (evt.target.id === 'user-form') {
+        const formData = new FormData(evt.target);
+        const userData = {};
+        formData.forEach((value, key) => {
+            userData[key] = value;
+        });
+
+        try {
+            await createUser(userData); // Implement this function to send data to the backend
+            // Optionally, refresh the user list after creation
+            await getAllUsers();
+        } catch (error) {
+            console.error('Error creating user:', error);
+        }
+    }
+});
+
+async function createUser(userData) {
+    return await fetch(`${API}/user/createUser`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(userData)
+    })
+        .then(response => response.json())
+        .catch(error => {
+            console.error('Error creating user:', error);
+            throw error;
+        });
+}
+
+    document.getElementById('main').addEventListener('click', async function (evt) {
+        evt.preventDefault();
+        if (evt.target.classList.contains('btn-delete-user')) {
+            const username = evt.target.getAttribute('data-event'); // Assuming username is passed as 'data-event'
+            try {
+                await deleteUser(username); // Call deleteUser function with the username
+                // Optionally, refresh the user list after deletion
+                await getAllUsers();
+            } catch (error) {
+                console.error('Error deleting user:', error);
+            }
+        }
+    });
+
+
+
+async function deleteUser(username) {
+    const userObject = {
+        username: username
+    };
+
+    try {
+        const response = await fetch(`${API}/user/deleteUser`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${getToken()}`
+            },
+            body: JSON.stringify(userObject)
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log('Response data:', data);
+        // Perform additional actions if needed
+
+    } catch (error) {
+        console.error('Error deleting user:', error);
+        throw error;
+    }
+}
+
+
+
+
+
+// Add an event listener to handle sorting
+document.getElementById('main').addEventListener('click', async function (evt) {
+    evt.preventDefault();
+    if (evt.target.classList.contains('sortable')) {
+        sortColumn = evt.target.getAttribute('data-column');
+        sortDirection = evt.target.getAttribute('data-direction');
+        try {
+            await getAllUsers();
+        } catch (error) {
+            console.error('Error sorting users:', error);
+        }
+    }
+});
