@@ -47,13 +47,13 @@
 
     <div id="mySidebar" class="sidebar text-center">
       <a href="javascript:void(0)" id="closebtn" class="closebtn">×</a>
-      <hr>
+      <hr />
       <a href="" id="adminLink">Event Administration</a>
-      <hr>
+      <hr />
       <a href="" id="ordersLink">Event Attendance</a>
-      <hr>
+      <hr />
       <a href="users.html" id="userLink">Users</a>
-      <hr>
+      <hr />
     </div>
     <div
       class="container-fluid d-flex align-items-center justify-content-between"
@@ -62,7 +62,13 @@
       <button class="btn btn-primary mt-3" id="add-event-btn">
         Add event <i class="fa fa-plus"></i>
       </button>
-      <button class="btn btn-primary mt-3" id="add-user-btn" style="display: none" data-bs-toggle="modal" data-bs-target="#userModal">
+      <button
+        class="btn btn-primary mt-3"
+        id="add-user-btn"
+        style="display: none"
+        data-bs-toggle="modal"
+        data-bs-target="#userModal"
+      >
         Add new user <i class="fa fa-plus"></i>
       </button>
     </div>
@@ -220,7 +226,8 @@
           </div>
         </div>
       </div>
-
+      <div id="confirmation-message" class="confirmation-message"></div>
+      <div id="error-message" class="error-message"></div>
     </div>
 
     <div class="container">

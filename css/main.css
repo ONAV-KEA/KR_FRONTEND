@@ -255,3 +255,57 @@ a.nav-link:hover {
   background-color: #129bb0;
   border-color: #129bb0;
 }
+
+/* Add this CSS for the confirmation animation */
+.confirmation-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #28a745; /* Bootstrap success color */
+  color: #fff;
+  border-radius: 5px;
+  display: none;
+  z-index: 1000;
+  animation: fadeInUp 0.5s ease-out forwards,
+    fadeOutUp 0.5s ease-out forwards 2s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+}
+
+/* Add this CSS for the error animation */
+.error-message {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px;
+  background-color: #dc3545; /* Bootstrap danger color */
+  color: #fff;
+  border-radius: 5px;
+  display: none;
+  z-index: 1000;
+  animation: fadeInUp 0.5s ease-out forwards,
+    fadeOutUp 0.5s ease-out forwards 2s;
+}

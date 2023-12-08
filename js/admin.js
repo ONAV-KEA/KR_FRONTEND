@@ -400,7 +400,7 @@ async function handleEvent(evt) {
         checkedDepartments = document.querySelectorAll("#eventDepartments input");
     }
 
-    const eventData = {
+    let eventData = {
         name: encode(document.getElementById("eventName").value),
         startDate: encode(document.getElementById("eventStartDate").value),
         endDate: encode(document.getElementById("eventEndDate").value === "" ? document.getElementById("eventStartDate").value : document.getElementById("eventEndDate").value),
@@ -423,28 +423,35 @@ async function handleEvent(evt) {
     }
 }
 
-    function editEvent(eventId, eventData) {
-        const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
-    
-        const options = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${getToken()}`
-                        
-            },
-            body: JSON.stringify(eventData)
-        };
-    
-        fetch(`${API}/event/${eventId}`, options)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                getAllEvents();
-            });
-    
-        myModal.hide();
-    }
+function editEvent(eventId, eventData) {
+    console.log(eventData);
+    const options = {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        },
+        body: JSON.stringify(eventData),
+    };
+
+    console.log(options);
+
+    fetch(`${API}/event/${eventId}`, options)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Error updating event');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            getAllEvents();
+        })
+        .catch(error => {
+            console.error('Error updating event:', error);
+        });
+}
+
 
 function addEvent(eventData) {
     const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
@@ -459,18 +466,38 @@ function addEvent(eventData) {
     };
 
     fetch(`${API}/event`, options)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
+        .then(response => {
+            if (!response.ok) {
+                showErrorMessage('Error adding event!');
+            } else{
+                showConfirmationMessage('Event successfully added!');
+            }
             getAllEvents();
-        });
-
+        })
     myModal.hide();
 }
 
 function getToken(){
     const localstorage_user = JSON.parse(localStorage.getItem('user'))
     return  localstorage_user.token
+}
+
+function showConfirmationMessage(message) {
+    const confirmationMessage = document.getElementById('confirmation-message');
+    confirmationMessage.textContent = message;
+    confirmationMessage.style.display = 'block';
+    setTimeout(() => {
+        confirmationMessage.style.display = 'none';
+    }, 2000); // Adjust the duration as needed
+}
+
+function showErrorMessage(message) {
+    const errorMessage = document.getElementById('error-message');
+    errorMessage.textContent = message;
+    errorMessage.style.display = 'block';
+    setTimeout(() => {
+        errorMessage.style.display = 'none';
+    }, 2000); // Adjust the duration as needed
 }
 
 getAllEvents(0);
