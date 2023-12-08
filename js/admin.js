@@ -215,9 +215,6 @@ async function makeEventRows(events) {
             <td>${event.endDate}</td>
             <td>${event.location}</td>
             <td>
-                <button class="btn btn-primary btn-sm">View Event <i class="fa fa-eye"></i></button>
-            </td>
-            <td>
                 <button class="btn btn-outline-primary btn-sm btn-edit-event" data-event="${event.id}">Edit <i class="fa fa-pencil"></i></button>
             </td>
             <td>

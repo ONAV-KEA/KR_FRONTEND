@@ -16,6 +16,7 @@ export function setupOrdersLink(evt) {
         <thead>
             <tr>
                 <th>Event Name</th>
+                <th></th>
                 <th>Users participating</th>
             </tr>
         </thead>
@@ -53,14 +54,17 @@ async function makeEventRows(events, eventUsersMap) {
         if (users) {
             userRows = users.map(user => `
                 <tr>
-                    <td style="padding-right: 100px;">${user.name}</td>
-                    <td>${user.additionalNotes}</td>
+                    <td style="padding-right: 100px;" id="username">${user.name}</td>
+                    <td id="notes">${user.additionalNotes}</td>
                 </tr>
             `).join("");
         }
         return `
-        <tr>
-            <td>${event.name}</td>
+        <tr data-event-id="${event.id}">
+            <td id="event-name">${event.name}</td>
+            <td>
+                <button class="btn btn-primary btn-download-stats" data-event-id="${event.id}">Download CSV</button>
+            </td>
             <td>
                 <table>
                     <thead>
@@ -69,7 +73,7 @@ async function makeEventRows(events, eventUsersMap) {
                             <th>Additional Notes</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id=user-rows">
                         ${userRows}
                     </tbody>
                 </table>
@@ -178,3 +182,64 @@ document.querySelector('#pagination').onclick = function (evt) {
         getAllEvents(page);
     }
 };
+
+// Stats section
+document.addEventListener('click', function (event) {
+    if (event.target.matches('.btn-download-stats')) {
+        const eventId = event.target.getAttribute('data-event-id');
+        showDownloadDialog(eventId);
+    }
+});
+
+function showDownloadDialog(eventId) {
+    const downloadAsCsv = window.confirm('Do you want to download the stats as CSV?');
+    if (downloadAsCsv) {
+        downloadStats(eventId);
+    }
+}
+
+
+
+async function downloadStats(eventId) {
+    // Fetch the event and its participating users
+    const event = await fetchEvent(eventId);
+    const users = await fetchParticipatingUsers(eventId);
+
+    // Prepare CSV data
+    let csvContent = "Event Name,User Name,Additional Notes\n";
+    for (const user of users) {
+        csvContent += `${event.name},${user.name},${user.additionalNotes}\n`;
+    }
+
+    // Create a blob from the CSV data
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+
+    // Create a link element, set its href to the blob, and click it to start the download
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", `${event.name}.csv`);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+async function fetchEvent(eventId) {
+    return fetch(`${API}/event/${eventId}`,{
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${getToken()}`
+        }
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Fetch error');
+            }
+            return response.json();
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch: ', error);
+        });
+}
