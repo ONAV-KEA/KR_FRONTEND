@@ -329,6 +329,12 @@ document.querySelector('#pagination').onclick = function (evt) {
 
 function deleteEvent(evt) {
     const eventId = evt.currentTarget.getAttribute("data-event");
+
+    const confirmDelete = confirm("Are you sure you want to delete this event?");
+    if (!confirmDelete) {
+        return;
+    }
+
     const options = {
         method: 'DELETE',
         headers: {
@@ -340,9 +346,10 @@ function deleteEvent(evt) {
     fetch(`${API}/event/${eventId}`, options)
         .then(response => {
             if (!response.ok) {
+                showErrorMessage('Error deleting event!');
                 throw new Error('Network response was not ok');
             }
-            // The delete request was successful, now call getAllEvents
+            showConfirmationMessage('Event successfully deleted!');
             getAllEvents();
         })
         .catch(error => {
@@ -423,7 +430,7 @@ async function handleEvent(evt) {
     }
 }
 
-function editEvent(eventId, eventData) {
+async function editEvent(eventId, eventData) {
     console.log(eventData);
     const options = {
         method: 'PUT',
@@ -436,22 +443,21 @@ function editEvent(eventId, eventData) {
 
     console.log(options);
 
-    fetch(`${API}/event/${eventId}`, options)
+    await fetch(`${API}/event/${eventId}`, options)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Error updating event');
+                showErrorMessage('Error updating event!');
             }
             return response.json();
         })
         .then(data => {
-            console.log('Success:', data);
+            showConfirmationMessage('Event successfully updated!');
             getAllEvents();
         })
         .catch(error => {
             console.error('Error updating event:', error);
         });
 }
-
 
 function addEvent(eventData) {
     const myModal = new bootstrap.Modal(document.getElementById('event-modal'));
