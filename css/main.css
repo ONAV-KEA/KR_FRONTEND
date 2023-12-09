@@ -309,3 +309,37 @@ a.nav-link:hover {
   animation: fadeInUp 0.5s ease-out forwards,
     fadeOutUp 0.5s ease-out forwards 2s;
 }
+
+#submitStatus {
+  font-size: 3em;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+}
+
+#submitStatus.show {
+  opacity: 1;
+}
+
+#checkmark path,
+#cross path {
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+  transition: stroke-dashoffset 1s ease-in-out;
+}
+
+#checkmark.show path,
+#cross.show path {
+  stroke-dashoffset: 0;
+}
+
+.checkmark {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: block;
+  stroke-width: 2;
+  stroke: green;
+  stroke-miterlimit: 10;
+  stroke-dashoffset: 0;
+  margin: 10% auto;
+}

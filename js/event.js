@@ -53,13 +53,16 @@ document.addEventListener('DOMContentLoaded', function() {
         const additionalNote = document.getElementById('additionalNote').value;
         const response = { participating: participating, additionalNote: additionalNote };
 
+        const checkmark = document.getElementById('checkmark');
+    const cross = document.getElementById('cross');
+
         sendUserResponse(id, response)
             .then(() => {
-                document.getElementById('responseMessage').innerText = 'Dit svar er modtaget.';
+                showAnimation(checkmark);
             })
             .catch((error) => {
                 console.error('Fejl:', error);
-                document.getElementById('responseMessage').innerText = 'Fejl. Prøv igen senere.';
+                showAnimation(cross);
             });
     });
 });
@@ -83,6 +86,10 @@ async function sendUserResponse(eventId, userResponse) {
     return fetchResponse.json();
 }
 
+function showAnimation(element) {
+    element.classList.add('show');
+    setTimeout(() => element.classList.remove('show'), 2000);
+}
 
 
 
