@@ -1,4 +1,5 @@
 import { getToken } from './getToken.js';
+import { showConfirmationMessage, showErrorMessage } from './admin.js';
 
 const API = "http://localhost:8080/api";
 const PAGE_SIZE = 10;
@@ -95,6 +96,16 @@ export async function setupUserLink(evt) {
     pagination.id = 'pagination';
     document.getElementById('main').appendChild(pagination);
 
+    const confirmationMessage = document.createElement('div');
+    confirmationMessage.id = 'confirmation-message';
+    confirmationMessage.className = 'confirmation-message'
+    document.getElementById('main').appendChild(confirmationMessage);
+
+    const errorMessage = document.createElement('div');
+    errorMessage.id = 'error-message';
+    errorMessage.className = 'error-message'
+    document.getElementById('main').appendChild(errorMessage);
+
     handleCrudClicks(evt);
     await getAllUsers();
 }
@@ -184,9 +195,16 @@ async function createUser(userData) {
         },
         body: JSON.stringify(userData)
     })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                showErrorMessage('Error creating user');
+                throw new Error('Network response was not ok');
+            }
+            showConfirmationMessage('User created successfully');
+            return response.json();
+        })
         .catch(error => {
-            console.error('Error creating user:', error);
+            showErrorMessage(error.message);
             throw error;
         });
 }
@@ -194,6 +212,12 @@ async function createUser(userData) {
 
 
 async function deleteUser(id) {
+
+    const confirmDelete = confirm("Are you sure you want to delete this event?");
+    if (!confirmDelete) {
+        return;
+    }
+
     try {
         const response = await fetch(`${API}/user/${id}`, {
             method: 'DELETE',
@@ -204,6 +228,7 @@ async function deleteUser(id) {
         });
 
         if (!response.ok) {
+            showErrorMessage('Error deleting user');
             throw new Error('Network response was not ok');
         }
 
@@ -214,9 +239,7 @@ async function deleteUser(id) {
         } else {
             data = await response.text();
         }
-
-        console.log('Response data:', data);
-        // Perform additional actions if needed
+        showConfirmationMessage('User deleted successfully');
 
     } catch (error) {
         console.error('Error deleting user:', error);

@@ -488,7 +488,7 @@ function getToken(){
     return  localstorage_user.token
 }
 
-function showConfirmationMessage(message) {
+export function showConfirmationMessage(message) {
     const confirmationMessage = document.getElementById('confirmation-message');
     confirmationMessage.textContent = message;
     confirmationMessage.style.display = 'block';
@@ -497,7 +497,7 @@ function showConfirmationMessage(message) {
     }, 2000); // Adjust the duration as needed
 }
 
-function showErrorMessage(message) {
+export function showErrorMessage(message) {
     const errorMessage = document.getElementById('error-message');
     errorMessage.textContent = message;
     errorMessage.style.display = 'block';
