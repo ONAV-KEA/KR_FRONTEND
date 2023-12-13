@@ -26,17 +26,16 @@ a.nav-link:hover {
   color: #129bb0;
 }
 
-/* Custom styles for the layout */
 .background-image {
   background-image: url("/assets/images/background-img.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh; /* Adjusts to full viewport height */
+  height: 100vh; 
   position: relative;
 }
 
 .overlay {
-  background-color: rgba(0, 60, 70, 0.86); /* Transparent black */
+  background-color: rgba(0, 60, 70, 0.86);
   height: 100%;
   width: 35%;
   position: absolute;
@@ -62,7 +61,7 @@ a.nav-link:hover {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  max-width: 200px; /* Adjust the max-width as needed */
+  max-width: 200px; 
   white-space: normal;
 }
 
@@ -73,8 +72,7 @@ a.nav-link:hover {
 .primary-btn:hover i {
   transform: translateX(
     10px
-  ); /* Adjust the value to shift the icon to the right */
-}
+  ); 
 
 .table {
   margin-left: auto;
@@ -242,8 +240,12 @@ a.nav-link:hover {
 }
 
 #eventAnswer {
-  width: 50%;
-  margin: 0 auto;
+  width: 15%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .btn.btn-primary {
@@ -256,14 +258,13 @@ a.nav-link:hover {
   border-color: #129bb0;
 }
 
-/* Add this CSS for the confirmation animation */
 .confirmation-message {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
-  background-color: #28a745; /* Bootstrap success color */
+  background-color: #28a745; 
   color: #fff;
   border-radius: 5px;
   display: none;
@@ -294,14 +295,13 @@ a.nav-link:hover {
   }
 }
 
-/* Add this CSS for the error animation */
 .error-message {
   position: fixed;
   top: 20px;
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
-  background-color: #dc3545; /* Bootstrap danger color */
+  background-color: #dc3545; 
   color: #fff;
   border-radius: 5px;
   display: none;
@@ -342,4 +342,52 @@ a.nav-link:hover {
   stroke-miterlimit: 10;
   stroke-dashoffset: 0;
   margin: 10% auto;
+}
+
+.form-check {
+  display: flex;
+  align-items: center;
+}
+.form-check-input {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-right: 8px;
+}
+
+.form-check-label {
+  margin-bottom: 0; 
+  font-size: 1rem;
+}
+
+.form-group {
+  margin-top: 15px;
+}
+
+input[type="radio"] {
+  accent-color: #003c46;
+  margin-right: 0;
+}
+
+.form-control {
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+}
+
+#eventAnswer-btn {
+  background-color: #003c46;
+  border-color: #003c46;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 1rem;
+  margin-top: 20px;
+}
+
+#eventAnswer-btn:hover {
+  background-color: #129bb0; 
+  border-color: #129bb0; 
+}
+
+label {
+  margin-left: -3px;
 }
