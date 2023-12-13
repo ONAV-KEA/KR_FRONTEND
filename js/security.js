@@ -1,4 +1,4 @@
-const API = 'http://localhost:8080/api/user';
+const API = 'https://api-onav.azurewebsites.net/api/user';
 import { getToken } from './getToken.js';
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById('loginForm').addEventListener('submit', login);

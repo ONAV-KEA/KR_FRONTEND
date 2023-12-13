@@ -1,6 +1,6 @@
 import { getToken } from './getToken.js';
 
-const API = "http://localhost:8080/api"
+const API = "https://api-onav.azurewebsites.net/api"
 const PAGE_SIZE = 10;
 let sortColumn = "name";
 let sortDirection = 'asc';
