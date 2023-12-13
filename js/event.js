@@ -1,7 +1,7 @@
 import { getToken } from './getToken.js';
 const urlParams = new URLSearchParams(window.location.search);
 const id = urlParams.get('id');
-const API = 'http://localhost:8080/api/event';
+const API = 'https://api-onav.azurewebsites.net/api/event';
 
 
 document.addEventListener("DOMContentLoaded", async () => {

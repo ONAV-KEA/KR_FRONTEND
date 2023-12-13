@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/api/user";
+const API = "https://api-onav.azurewebsites.net/api/user";
 
 function checkUserToken() {
     const user = JSON.parse(localStorage.getItem('user'));
