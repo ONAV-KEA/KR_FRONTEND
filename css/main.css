@@ -30,7 +30,7 @@ a.nav-link:hover {
   background-image: url("/assets/images/background-img.jpg");
   background-size: cover;
   background-position: center;
-  height: 100vh; 
+  height: 100vh;
   position: relative;
 }
 
@@ -61,7 +61,7 @@ a.nav-link:hover {
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
-  max-width: 200px; 
+  max-width: 200px;
   white-space: normal;
 }
 
@@ -70,9 +70,8 @@ a.nav-link:hover {
 }
 
 .primary-btn:hover i {
-  transform: translateX(
-    10px
-  ); 
+  transform: translateX(10px);
+}
 
 .table {
   margin-left: auto;
@@ -264,7 +263,7 @@ a.nav-link:hover {
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
-  background-color: #28a745; 
+  background-color: #28a745;
   color: #fff;
   border-radius: 5px;
   display: none;
@@ -301,7 +300,7 @@ a.nav-link:hover {
   left: 50%;
   transform: translateX(-50%);
   padding: 10px;
-  background-color: #dc3545; 
+  background-color: #dc3545;
   color: #fff;
   border-radius: 5px;
   display: none;
@@ -355,7 +354,7 @@ a.nav-link:hover {
 }
 
 .form-check-label {
-  margin-bottom: 0; 
+  margin-bottom: 0;
   font-size: 1rem;
 }
 
@@ -384,8 +383,8 @@ input[type="radio"] {
 }
 
 #eventAnswer-btn:hover {
-  background-color: #129bb0; 
-  border-color: #129bb0; 
+  background-color: #129bb0;
+  border-color: #129bb0;
 }
 
 label {
