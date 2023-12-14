@@ -404,6 +404,16 @@ async function handleEvent(evt) {
         checkedDepartments = document.querySelectorAll("#eventDepartments input");
     }
 
+    let startDate = new Date(document.getElementById("eventStartDate").value);
+    let endDate = new Date(document.getElementById("eventEndDate").value);
+
+    if (endDate < startDate) {
+        showErrorMessage('End date cannot be earlier than start date');
+        return;
+    }
+
+
+
     let eventData = {
         name: encode(document.getElementById("eventName").value),
         startDate: encode(document.getElementById("eventStartDate").value),
